@@ -22,3 +22,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/main', function () {
     return view('main.main');
 });
+
+Route::get('/{vue?}', function () {
+    return view('main.main');           // view('pages.admin')
+})->where('vue', '[\/\w\.-]*');
+

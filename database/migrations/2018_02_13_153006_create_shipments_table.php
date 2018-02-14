@@ -15,6 +15,11 @@ class CreateShipmentsTable extends Migration
     {
         Schema::create('shipments', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('booking_id');
+            $table->date('date');
+            $table->smallInteger('weight')->unsigned();
+            //$table->smallInteger('amount')->unsigned();
+            $table->string('location');
             $table->timestamps();
         });
     }

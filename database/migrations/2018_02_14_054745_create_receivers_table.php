@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBookingsTable extends Migration
+class CreateReceiversTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateBookingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bookings', function (Blueprint $table) {
+        Schema::create('receivers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('customer_id');            
-            $table->boolean('home_delivery');            
-            //$table->string('receiving_from')->nullable($value = true);
-            $table->string('receiving_from')->default('N/A');
+            $table->string('name');
+            $table->string('phone', 25);
+            $table->text('address');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateBookingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bookings');
+        Schema::dropIfExists('receivers');
     }
 }

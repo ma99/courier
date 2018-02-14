@@ -7,15 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {
 
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
     public function shipment()
     {
     	return $this->hasOne(Shipment::class);
     	
     }
 
-    public function customer()
+    public function receiver()
     {
-        return $this->belongsTo(Customer::class, 'sender_id');
+    	return $this->hasOne(Receiver::class);
+    	
     }
 
 }
