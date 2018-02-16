@@ -15,6 +15,8 @@ class CreateReceiversTable extends Migration
     {
         Schema::create('receivers', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('booking_id');
+            //$table->integer('booking_ref')->unsigned();
             $table->string('name');
             $table->string('phone', 25);
             $table->text('address');

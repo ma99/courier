@@ -15,11 +15,11 @@
                         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                           <li class="nav-item active">
                             <!-- {{-- <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> --}} -->
-                            <router-link to="/main" exact><i class="fa fa-clock-o"></i> <span class="nav-link">Home</span></router-link>
+                            <router-link to="/main" exact class="nav-link"><i class="fa fa-clock-o"></i> <span>Home</span></router-link>
                           </li>
                           <li class="nav-item">
                             <!-- {{-- <a class="nav-link" href="#">Booking</a> --}} -->
-                            <router-link to="/booking"><i class="fa fa-table" aria-hidden="true"></i><span class="nav-link">Booking</span></router-link>
+                            <router-link to="/booking" class="nav-link"><i class="fa fa-table" aria-hidden="true"></i><span>Booking</span></router-link>
                           </li>
                           <li class="nav-item">
                             <a class="nav-link" href="#">Shipment</a>

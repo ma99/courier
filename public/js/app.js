@@ -617,7 +617,7 @@ module.exports = function normalizeComponent (
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* WEBPACK VAR INJECTION */(function(global) {/**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
- * @version 1.12.9
+ * @version 1.13.0
  * @license
  * Copyright (c) 2016 Federico Zivolo and contributors
  *
@@ -49783,13 +49783,14 @@ var render = function() {
                           [
                             _c(
                               "router-link",
-                              { attrs: { to: "/main", exact: "" } },
+                              {
+                                staticClass: "nav-link",
+                                attrs: { to: "/main", exact: "" }
+                              },
                               [
                                 _c("i", { staticClass: "fa fa-clock-o" }),
                                 _vm._v(" "),
-                                _c("span", { staticClass: "nav-link" }, [
-                                  _vm._v("Home")
-                                ])
+                                _c("span", [_vm._v("Home")])
                               ]
                             )
                           ],
@@ -49800,15 +49801,20 @@ var render = function() {
                           "li",
                           { staticClass: "nav-item" },
                           [
-                            _c("router-link", { attrs: { to: "/booking" } }, [
-                              _c("i", {
-                                staticClass: "fa fa-table",
-                                attrs: { "aria-hidden": "true" }
-                              }),
-                              _c("span", { staticClass: "nav-link" }, [
-                                _vm._v("Booking")
-                              ])
-                            ])
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "nav-link",
+                                attrs: { to: "/booking" }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fa fa-table",
+                                  attrs: { "aria-hidden": "true" }
+                                }),
+                                _c("span", [_vm._v("Booking")])
+                              ]
+                            )
                           ],
                           1
                         ),
@@ -49974,11 +49980,223 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    // mounted() {
-    //     console.log('Component mounted.')
-    // }
+    data: function data() {
+        return {
+            areaName: '',
+            bookingRef: '',
+            cityList: [],
+            divisionList: [],
+            error: '',
+            homeDelivery: 'Yes',
+            //receivingAddress: '',
+            selectedCity: '',
+            selectedDivision: '',
+            sender: {
+                name: '',
+                address: '',
+                phone: ''
+            },
+            receiver: {
+                name: '',
+                address: '',
+                phone: ''
+            }
+        };
+    },
+    mounted: function mounted() {
+        this.setBookingRef();
+        this.fetchDivisions();
+    },
+
+    watch: {
+        selectedDivision: function selectedDivision() {
+            this.fetchCitiesByDivision(this.selectedDivision.id); // this.selectedDivisionId
+        }
+    },
+    methods: {
+        fetchCitiesByDivision: function fetchCitiesByDivision(divisionId) {
+            //this.loading = true;
+            //this.cityList= [];            
+            var vm = this;
+            //axios.get('api/bus?q=' + busId) //--> admin/api/bus?q=xyz  (wrong)
+            axios.get('/api/districts?q=' + divisionId) //--> /api/bus?q=xyz        (right)
+            .then(function (response) {
+                response.data.error ? vm.error = response.data.error : vm.cityList = response.data;
+                //vm.loading = false;                  
+            });
+        },
+        fetchDate: function fetchDate() {
+
+            // generate 6 digits random string 
+            //Math.floor(100000 + Math.random() * 900000)  
+            var today = new Date();
+            var date = today.getFullYear() + '' + (today.getMonth() + 1) + '' + today.getDate();
+            var time = today.getHours() + '' + today.getMinutes() + '' + today.getSeconds();
+            // console.log(date);
+            // console.log(time);
+            var dateTime = date + time;
+            return dateTime;
+        },
+        fetchDivisions: function fetchDivisions() {
+            //this.loading = true;
+            this.divisionList = [];
+            var vm = this;
+            //axios.get('api/bus?q=' + busId) //--> admin/api/bus?q=xyz  (wrong)
+            axios.get('/api/divisions') //--> api/bus?q=xyz        (right)
+            .then(function (response) {
+                response.data.error ? vm.error = response.data.error : vm.divisionList = response.data;
+                //vm.loading = false;                  
+            });
+        },
+        saveBookingInfo: function saveBookingInfo() {
+            var vm = this;
+            var receivingAddress = 'N/A';
+            if (this.homeDelivery == 'No') {
+                var receivingAddress = this.areaName + ', ' + this.selectedCity.name + ', ' + this.selectedDivision.name;
+            }
+            console.log('radddd=', receivingAddress);
+
+            axios.post('/booking', {
+                booking_ref: this.bookingRef,
+                sender: this.sender,
+                receiver: this.receiver,
+                home_delivery: this.homeDelivery,
+                receiving_address: receivingAddress
+            }).then(function (response) {
+                //console.log(response.data);
+                response.data.error ? vm.error = response.data.error : vm.response = response.data;
+                // if (vm.response) {
+                //    //console.log(vm.response);
+                //    vm.fetchBusAvailableToCities();
+                //    vm.SortByCityNameBusAvailableToCityList(vm.busAvailableToCityList);
+                //    vm.loading = false;
+                //    vm.disableSaveButton = true;
+                //    vm.cityAddedAlert(vm.selectedCity.name);
+                //    vm.reset();
+                //    return;                   
+                // }
+                // vm.loading = false;
+                //vm.disableSaveButton = true;
+            });
+        },
+        setBookingRef: function setBookingRef() {
+            this.bookingRef = this.fetchDate();
+        }
+    }
 });
 
 /***/ }),
@@ -49990,26 +50208,579 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("section", { staticClass: "content-header" }, [
-      _c("h1", [_vm._v("\r\n        Booking\r\n        ")]),
-      _vm._v(" "),
-      _c("ol", { staticClass: "breadcrumb" }, [
-        _c(
-          "li",
-          [
-            _c("router-link", { attrs: { to: "/home" } }, [
-              _c("i", { staticClass: "fa fa-dashboard" }),
-              _vm._v("Dashboard\r\n          ")
-            ])
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("li", { staticClass: "active" }, [_vm._v("Here")])
-      ])
-    ]),
+    _vm._m(0),
     _vm._v(" "),
-    _vm._m(0)
+    _c("section", { staticClass: "content" }, [
+      _c("p", [_vm._v(" Booking Page ")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row justify-content-center" }, [
+        _c("div", { staticClass: "col-8" }, [
+          _c("form", [
+            _c("div", { staticClass: "form-group row" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "col-sm-3 col-form-label",
+                  attrs: { for: "inputBookingRef" }
+                },
+                [_vm._v("Ref No")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-6" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.bookingRef,
+                      expression: "bookingRef"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", id: "inputBookingRef", disabled: "" },
+                  domProps: { value: _vm.bookingRef },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.bookingRef = $event.target.value
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group row" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "col-sm-3 col-form-label",
+                  attrs: { for: "senderName" }
+                },
+                [_vm._v("Sender Name")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-8" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.sender.name,
+                      expression: "sender.name"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    id: "senderName",
+                    placeholder: "Sender Name"
+                  },
+                  domProps: { value: _vm.sender.name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.sender, "name", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group row" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "col-sm-3 col-form-label",
+                  attrs: { for: "senderPhone" }
+                },
+                [_vm._v("Sender Phone")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-8" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.sender.phone,
+                      expression: "sender.phone"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    id: "senderPhone",
+                    placeholder: "Sender Phone"
+                  },
+                  domProps: { value: _vm.sender.phone },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.sender, "phone", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group row" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "col-sm-3 col-form-label",
+                  attrs: { for: "senderAddress" }
+                },
+                [_vm._v("Sender address")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-8" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.sender.address,
+                      expression: "sender.address"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    id: "senderAddress",
+                    placeholder: "Sender address"
+                  },
+                  domProps: { value: _vm.sender.address },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.sender, "address", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group row" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "col-sm-3 col-form-label",
+                  attrs: { for: "receiverName" }
+                },
+                [_vm._v("Receiver Name")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-8" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.receiver.name,
+                      expression: "receiver.name"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    id: "receiverName",
+                    placeholder: "Receiver Name"
+                  },
+                  domProps: { value: _vm.receiver.name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.receiver, "name", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group row" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "col-sm-3 col-form-label",
+                  attrs: { for: "receiverPhone" }
+                },
+                [_vm._v("Receiver Phone")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-8" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.receiver.phone,
+                      expression: "receiver.phone"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    id: "receiverPhone",
+                    placeholder: "Receiver Phone"
+                  },
+                  domProps: { value: _vm.receiver.phone },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.receiver, "phone", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group row" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "col-sm-3 col-form-label",
+                  attrs: { for: "receiverAddress" }
+                },
+                [_vm._v("Receiver address")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-8" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.receiver.address,
+                      expression: "receiver.address"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    id: "receiverAddress",
+                    placeholder: "Receiver address"
+                  },
+                  domProps: { value: _vm.receiver.address },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.receiver, "address", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("fieldset", { staticClass: "form-group" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("legend", { staticClass: "col-form-label col-sm-3 pt-0" }, [
+                  _vm._v("Home Delivery")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-6" }, [
+                  _c("div", { staticClass: "form-check" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.homeDelivery,
+                          expression: "homeDelivery"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "radio",
+                        name: "gridRadios",
+                        id: "gridRadios1",
+                        value: "Yes"
+                      },
+                      domProps: { checked: _vm._q(_vm.homeDelivery, "Yes") },
+                      on: {
+                        change: function($event) {
+                          _vm.homeDelivery = "Yes"
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "gridRadios1" }
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                      Yes\r\n                    "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-check" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.homeDelivery,
+                          expression: "homeDelivery"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "radio",
+                        name: "gridRadios",
+                        id: "gridRadios2",
+                        value: "No"
+                      },
+                      domProps: { checked: _vm._q(_vm.homeDelivery, "No") },
+                      on: {
+                        change: function($event) {
+                          _vm.homeDelivery = "No"
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "gridRadios2" }
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                      No\r\n                    "
+                        )
+                      ]
+                    )
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.homeDelivery == "Yes" ? false : true,
+                    expression: "(homeDelivery == 'Yes') ? false : true"
+                  }
+                ],
+                staticClass: "receiving-address"
+              },
+              [
+                _c("div", { staticClass: "form-group row" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "col-sm-3 col-form-label",
+                      attrs: { for: "receivingAddress" }
+                    },
+                    [_vm._v("Receiving address")]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-3" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "divisionName" } }, [
+                        _vm._v("Division Name")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.selectedDivision,
+                              expression: "selectedDivision"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { id: "divisionName" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.selectedDivision = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { disabled: "", value: "" } }, [
+                            _vm._v("Please select one")
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.divisionList, function(division) {
+                            return _c(
+                              "option",
+                              {
+                                domProps: {
+                                  value: {
+                                    id: division.id,
+                                    name: division.name
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\r\n                            " +
+                                    _vm._s(division.name) +
+                                    "\r\n                          "
+                                )
+                              ]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-3" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "cityName" } }, [
+                        _vm._v("City Name ")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.selectedCity,
+                              expression: "selectedCity"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { id: "cityName" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.selectedCity = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { disabled: "", value: "" } }, [
+                            _vm._v("Please select one")
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.cityList, function(city) {
+                            return _c(
+                              "option",
+                              {
+                                domProps: {
+                                  value: { id: city.id, name: city.name }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\r\n                            " +
+                                    _vm._s(city.name) +
+                                    "\r\n                          "
+                                )
+                              ]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-3" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "areaName" } }, [
+                        _vm._v("Area Name ")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.areaName,
+                            expression: "areaName"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", id: "areaName" },
+                        domProps: { value: _vm.areaName },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.areaName = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group row" }, [
+              _c("div", { staticClass: "col-sm-4" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        _vm.saveBookingInfo()
+                      }
+                    }
+                  },
+                  [_vm._v("Save")]
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -50017,8 +50788,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("section", { staticClass: "content" }, [
-      _c("h1", [_vm._v(" Booking Page ")])
+    return _c("section", { staticClass: "content-header" }, [
+      _c("h1", [_vm._v("\r\n        Booking\r\n        ")])
     ])
   }
 ]

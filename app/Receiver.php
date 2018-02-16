@@ -8,6 +8,6 @@ class Receiver extends Model
 {
     //
     protected $fillable = [
-        'name', 'phone', 'address',
+        'name', 'phone', 'address', 'booking_id'
     ];
 }

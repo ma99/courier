@@ -27,3 +27,5 @@ Route::get('/{vue?}', function () {
     return view('main.main');           // view('pages.admin')
 })->where('vue', '[\/\w\.-]*');
 
+
+Route::post('/booking', 'BookingController@store');

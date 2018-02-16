@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
+    protected $fillable = [
+        'booking_ref', 'customer_id', 'home_delivery', 'receiving_address', 'shipment_info'
+    ];
+
+    // public function setHomeDeliveryAttribute($value)
+    // {
+    //     $this->attributes['home_delivery'] = ($value == 'yes') ? true : false; 
+    // }    
 
     public function customer()
     {
