@@ -66,7 +66,7 @@
               </div>
             </div>
             
-            <fieldset class="form-group">
+           <!--  <fieldset class="form-group">
               <div class="row">
                 <legend class="col-form-label col-sm-3 pt-0">Home Delivery</legend>
                 <div class="col-sm-6">
@@ -85,9 +85,21 @@
                   
                 </div>
               </div>
-            </fieldset>            
+            </fieldset>    --> 
+            <div class="form-group row">
+              <div class="col-sm-3">Home Delivery</div>
+              <div class="col-sm-4">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="gridCheck1" v-model="homeDelivery">
+                  <!-- <label class="form-check-label" for="gridCheck1">
+                    Example checkbox
+                  </label> -->
+                </div>
+              </div>
+            </div>        
 
-            <div class="receiving-address" v-show="(homeDelivery == 'Yes') ? false : true">
+            <!-- <div class="receiving-address" v-show="(homeDelivery == 'Yes') ? false : true"> -->
+            <div class="receiving-address" v-show="!homeDelivery">
               <div class="form-group row">
                 <label for="receivingAddress" class="col-sm-3 col-form-label">Receiving address</label>
                 
@@ -147,7 +159,7 @@
             cityList: [],
             divisionList: [],
             error: '',
-            homeDelivery: 'Yes',
+            homeDelivery: false,
             //receivingAddress: '',
             selectedCity: '',
             selectedDivision: '',
@@ -210,12 +222,20 @@
           saveBookingInfo() {
             var vm = this;
             var receivingAddress = 'N/A';
-            if (this.homeDelivery == 'No') {
+            /*if (this.homeDelivery == 'No') {
+                var receivingAddress = this.areaName + ', ' + 
+                                        this.selectedCity.name + ', ' + 
+                                        this.selectedDivision.name;
+
+            }*/
+            if (this.homeDelivery == false) {
                 var receivingAddress = this.areaName + ', ' + 
                                         this.selectedCity.name + ', ' + 
                                         this.selectedDivision.name;
 
             }
+
+
             console.log('radddd=', receivingAddress);
             
             axios.post('/booking', {

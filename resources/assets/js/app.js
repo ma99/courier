@@ -22,6 +22,7 @@ Vue.use(VueRouter);
 //components
 import App from './views/App'
 import Booking from './views/Booking'
+import Shipment from './views/Shipment'
 import Home from './views/Home'
 
 const router = new VueRouter({
@@ -36,6 +37,10 @@ const router = new VueRouter({
             path: '/booking',
             name: 'booking',
             component: Booking
+        },
+        {
+            path: '/shipment',            
+            component: Shipment
         },
     ],
 });

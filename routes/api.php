@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/divisions', 'Api\SearchCitiesController@divisionList');
 Route::get('/districts', 'Api\SearchCitiesController@districtList');
+Route::get('/booking', 'Api\SearchBookingController@bookingList');

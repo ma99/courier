@@ -10,10 +10,19 @@ class Booking extends Model
         'booking_ref', 'customer_id', 'home_delivery', 'receiving_address', 'shipment_info'
     ];
 
+    protected $casts = [
+        'shipment_info' => 'boolean',
+    ];
+
     // public function setHomeDeliveryAttribute($value)
     // {
     //     $this->attributes['home_delivery'] = ($value == 'yes') ? true : false; 
     // }    
+
+    public function setHomeDeliveryAttribute($value)
+    {
+        $this->attributes['home_delivery'] = ($value == true) ? 'Yes' : 'No'; 
+    }  
 
     public function customer()
     {

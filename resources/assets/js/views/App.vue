@@ -22,7 +22,8 @@
                             <router-link to="/booking" class="nav-link"><i class="fa fa-table" aria-hidden="true"></i><span>Booking</span></router-link>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="#">Shipment</a>
+                            <!-- <a class="nav-link" href="#">Shipment</a> -->
+                            <router-link to="/shipment" class="nav-link"><i class="fa fa-table" aria-hidden="true"></i><span>Shipment</span></router-link>
                           </li>
                            <li class="nav-item">
                             <a class="nav-link" href="#">Report</a>
