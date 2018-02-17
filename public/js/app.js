@@ -51482,7 +51482,10 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "input-group-append input-group-addon" }, [
       _c("span", { staticClass: "input-group-text" }, [
-        _vm._v("\n\t\t\t\t\t\t    \tDate\n\t\t\t\t\t\t    ")
+        _c("i", {
+          staticClass: "fa fa-calendar",
+          attrs: { "aria-hidden": "true" }
+        })
       ])
     ])
   }

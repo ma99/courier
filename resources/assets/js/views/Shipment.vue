@@ -33,7 +33,7 @@
 	                	<div class="input-group-append input-group-addon">
 						    <span class="input-group-text">
 						    	<!-- <i class="fa fa-calendar-check-o" aria-hidden="true"></i> -->
-						    	Date
+						    	<i class="fa fa-calendar" aria-hidden="true"></i>
 						    </span>
 						</div>
 	                	<!-- <div class="input-group-append">
