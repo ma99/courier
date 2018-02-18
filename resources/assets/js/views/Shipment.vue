@@ -1,13 +1,14 @@
 <template>
 	<div>
 		<section class="content-header">
-      <h1>Shipment</h1>      
+      <h2>Shipment</h2> 
+      <hr>     
     </section>
 
      <!-- Main content -->
     <section class="content">       
      <!-- Your Page Content Here -->   
-     <p> Shipment Page </p> 
+    <!--  <p> Shipment Page </p>  -->
       <div class="row justify-content-center">
         <div class="col-8">          
          <form>
@@ -55,7 +56,7 @@
             
             <div class="receiving-address">
               <div class="form-group row">
-                <label for="receivingAddress" class="col-sm-3 col-form-label">Receiving address</label>                
+                <label for="receivingAddress" class="col-sm-3 col-form-label">Shipment (District)</label>                
                   <div class="col-sm-4">
                     <div class="form-group">
                       <label for="divisionName">Division Name</label>
@@ -70,7 +71,7 @@
 
                   <div class="col-sm-4">
                     <div class="form-group">
-                      <label for="cityName">City Name </label>                       
+                      <label for="cityName">District Name </label>                       
                       <select v-model="selectedCity" class="form-control" id="cityName">
                           <option disabled value="">Please select one</option>                          
                           <option v-for="city in cityList" v-bind:value="{ id: city.id, name: city.name }">

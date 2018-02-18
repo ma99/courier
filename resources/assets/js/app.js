@@ -18,6 +18,9 @@ Vue.use(VueRouter);
 
 //     router
 // });
+Vue.component('show-alert', require('./components/Alert.vue'));
+Vue.component('high-light', require('./components/Highlighter.vue'));
+Vue.component('loader', require('./components/Loader.vue'));
 
 //components
 import App from './views/App'

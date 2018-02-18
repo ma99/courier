@@ -3,21 +3,22 @@
   <div>
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
+      <h2>
         Booking
         <!-- <small>Optional description</small> -->
-      </h1>      
+      </h2>
+      <hr>      
     </section>
 
     <!-- Main content -->
     <section class="content">       
      <!-- Your Page Content Here -->   
-     <p> Booking Page </p> 
+     <!-- <p> Booking Page </p>  -->
       <div class="row justify-content-center">
         <div class="col-8">          
          <form>
             <div class="form-group row">
-              <label for="inputBookingRef" class="col-sm-3 col-form-label">Ref No</label>
+              <label for="inputBookingRef" class="col-sm-3 col-form-label">Booking Ref No</label>
               <div class="col-sm-6">
                 <input type="text" class="form-control" id="inputBookingRef" v-model="bookingRef" disabled>
               </div>
@@ -38,7 +39,7 @@
             </div>
 
             <div class="form-group row">
-              <label for="senderAddress" class="col-sm-3 col-form-label">Sender address</label>
+              <label for="senderAddress" class="col-sm-3 col-form-label">Sender Address</label>
               <div class="col-sm-8">
                 <input type="text" class="form-control" id="senderAddress" placeholder="Sender address" v-model="sender.address">
               </div>
@@ -117,7 +118,7 @@
 
                   <div class="col-sm-3">
                     <div class="form-group">
-                      <label for="cityName">City Name </label>                       
+                      <label for="cityName">District Name </label>                       
                       <select v-model="selectedCity" class="form-control" id="cityName">
                           <option disabled value="">Please select one</option>                          
                           <option v-for="city in cityList" v-bind:value="{ id: city.id, name: city.name }">
@@ -136,7 +137,7 @@
                   </div>
               </div>              
             </div>
-            
+            <loader :show="loading"></loader>
             <div class="form-group row">
               <div class="col-sm-4">
                 <button type="submit" class="btn btn-primary" v-on:click.prevent="saveBookingInfo()">Save</button>
@@ -160,6 +161,7 @@
             divisionList: [],
             error: '',
             homeDelivery: false,
+            loading: false,
             //receivingAddress: '',
             selectedCity: '',
             selectedDivision: '',
@@ -193,7 +195,7 @@
             axios.get('/api/districts?q=' + divisionId)  //--> /api/bus?q=xyz        (right)
                 .then(function (response) {                  
                    response.data.error ? vm.error = response.data.error : vm.cityList = response.data;
-                   //vm.loading = false;                  
+                  // vm.loading = false;                  
             });
           },  
           fetchDate() {
@@ -221,6 +223,7 @@
           },
           saveBookingInfo() {
             var vm = this;
+            this.loading = true;
             var receivingAddress = 'N/A';
             /*if (this.homeDelivery == 'No') {
                 var receivingAddress = this.areaName + ', ' + 
@@ -258,7 +261,7 @@
                 //    vm.reset();
                 //    return;                   
                 // }
-                // vm.loading = false;
+                vm.loading = false;
                 //vm.disableSaveButton = true;
             });
           },
