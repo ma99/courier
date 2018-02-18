@@ -402,106 +402,6 @@ module.exports = g;
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(22);
-
-var DEFAULT_CONTENT_TYPE = {
-  'Content-Type': 'application/x-www-form-urlencoded'
-};
-
-function setContentTypeIfUnset(headers, value) {
-  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
-    headers['Content-Type'] = value;
-  }
-}
-
-function getDefaultAdapter() {
-  var adapter;
-  if (typeof XMLHttpRequest !== 'undefined') {
-    // For browsers use XHR adapter
-    adapter = __webpack_require__(8);
-  } else if (typeof process !== 'undefined') {
-    // For node use HTTP adapter
-    adapter = __webpack_require__(8);
-  }
-  return adapter;
-}
-
-var defaults = {
-  adapter: getDefaultAdapter(),
-
-  transformRequest: [function transformRequest(data, headers) {
-    normalizeHeaderName(headers, 'Content-Type');
-    if (utils.isFormData(data) ||
-      utils.isArrayBuffer(data) ||
-      utils.isBuffer(data) ||
-      utils.isStream(data) ||
-      utils.isFile(data) ||
-      utils.isBlob(data)
-    ) {
-      return data;
-    }
-    if (utils.isArrayBufferView(data)) {
-      return data.buffer;
-    }
-    if (utils.isURLSearchParams(data)) {
-      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
-      return data.toString();
-    }
-    if (utils.isObject(data)) {
-      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
-      return JSON.stringify(data);
-    }
-    return data;
-  }],
-
-  transformResponse: [function transformResponse(data) {
-    /*eslint no-param-reassign:0*/
-    if (typeof data === 'string') {
-      try {
-        data = JSON.parse(data);
-      } catch (e) { /* Ignore */ }
-    }
-    return data;
-  }],
-
-  timeout: 0,
-
-  xsrfCookieName: 'XSRF-TOKEN',
-  xsrfHeaderName: 'X-XSRF-TOKEN',
-
-  maxContentLength: -1,
-
-  validateStatus: function validateStatus(status) {
-    return status >= 200 && status < 300;
-  }
-};
-
-defaults.headers = {
-  common: {
-    'Accept': 'application/json, text/plain, */*'
-  }
-};
-
-utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
-  defaults.headers[method] = {};
-});
-
-utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
-  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
-});
-
-module.exports = defaults;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -608,6 +508,106 @@ module.exports = function normalizeComponent (
   }
 }
 
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+var utils = __webpack_require__(0);
+var normalizeHeaderName = __webpack_require__(22);
+
+var DEFAULT_CONTENT_TYPE = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+};
+
+function setContentTypeIfUnset(headers, value) {
+  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
+    headers['Content-Type'] = value;
+  }
+}
+
+function getDefaultAdapter() {
+  var adapter;
+  if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = __webpack_require__(8);
+  } else if (typeof process !== 'undefined') {
+    // For node use HTTP adapter
+    adapter = __webpack_require__(8);
+  }
+  return adapter;
+}
+
+var defaults = {
+  adapter: getDefaultAdapter(),
+
+  transformRequest: [function transformRequest(data, headers) {
+    normalizeHeaderName(headers, 'Content-Type');
+    if (utils.isFormData(data) ||
+      utils.isArrayBuffer(data) ||
+      utils.isBuffer(data) ||
+      utils.isStream(data) ||
+      utils.isFile(data) ||
+      utils.isBlob(data)
+    ) {
+      return data;
+    }
+    if (utils.isArrayBufferView(data)) {
+      return data.buffer;
+    }
+    if (utils.isURLSearchParams(data)) {
+      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+      return data.toString();
+    }
+    if (utils.isObject(data)) {
+      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
+      return JSON.stringify(data);
+    }
+    return data;
+  }],
+
+  transformResponse: [function transformResponse(data) {
+    /*eslint no-param-reassign:0*/
+    if (typeof data === 'string') {
+      try {
+        data = JSON.parse(data);
+      } catch (e) { /* Ignore */ }
+    }
+    return data;
+  }],
+
+  timeout: 0,
+
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
+  maxContentLength: -1,
+
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  }
+};
+
+defaults.headers = {
+  common: {
+    'Accept': 'application/json, text/plain, */*'
+  }
+};
+
+utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+  defaults.headers[method] = {};
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});
+
+module.exports = defaults;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ }),
 /* 4 */
@@ -13889,8 +13889,8 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(13);
-__webpack_require__(50);
-module.exports = __webpack_require__(51);
+__webpack_require__(53);
+module.exports = __webpack_require__(54);
 
 
 /***/ }),
@@ -13904,9 +13904,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__views_App___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__views_App__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_Booking__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_Booking___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__views_Booking__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_Shipment__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_Shipment__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_Shipment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__views_Shipment__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_Home__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_Home__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_Home___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__views_Home__);
 
 __webpack_require__(14);
@@ -13981,7 +13981,7 @@ try {
  * to our Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
-__webpack_require__(60);
+__webpack_require__(66);
 window.axios = __webpack_require__(18);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -35066,7 +35066,7 @@ module.exports = __webpack_require__(19);
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(6);
 var Axios = __webpack_require__(21);
-var defaults = __webpack_require__(2);
+var defaults = __webpack_require__(3);
 
 /**
  * Create an instance of Axios
@@ -35149,7 +35149,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(2);
+var defaults = __webpack_require__(3);
 var utils = __webpack_require__(0);
 var InterceptorManager = __webpack_require__(30);
 var dispatchRequest = __webpack_require__(31);
@@ -35690,7 +35690,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(32);
 var isCancel = __webpack_require__(10);
-var defaults = __webpack_require__(2);
+var defaults = __webpack_require__(3);
 var isAbsoluteURL = __webpack_require__(33);
 var combineURLs = __webpack_require__(34);
 
@@ -49652,7 +49652,7 @@ if (inBrowser && window.Vue) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(42)
 /* template */
@@ -49747,6 +49747,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     // mounted() {
@@ -49786,7 +49802,7 @@ var render = function() {
                       [
                         _c(
                           "li",
-                          { staticClass: "nav-item active" },
+                          { staticClass: "nav-item" },
                           [
                             _c(
                               "router-link",
@@ -49795,7 +49811,10 @@ var render = function() {
                                 attrs: { to: "/main", exact: "" }
                               },
                               [
-                                _c("i", { staticClass: "fa fa-clock-o" }),
+                                _c("i", {
+                                  staticClass: "fa fa-home",
+                                  attrs: { "aria-hidden": "true" }
+                                }),
                                 _vm._v(" "),
                                 _c("span", [_vm._v("Home")])
                               ]
@@ -49819,6 +49838,7 @@ var render = function() {
                                   staticClass: "fa fa-table",
                                   attrs: { "aria-hidden": "true" }
                                 }),
+                                _vm._v(" "),
                                 _c("span", [_vm._v("Booking")])
                               ]
                             )
@@ -49838,9 +49858,10 @@ var render = function() {
                               },
                               [
                                 _c("i", {
-                                  staticClass: "fa fa-table",
+                                  staticClass: "fa fa-paper-plane",
                                   attrs: { "aria-hidden": "true" }
                                 }),
+                                _vm._v(" "),
                                 _c("span", [_vm._v("Shipment")])
                               ]
                             )
@@ -49848,9 +49869,51 @@ var render = function() {
                           1
                         ),
                         _vm._v(" "),
-                        _vm._m(1),
+                        _c(
+                          "li",
+                          { staticClass: "nav-item" },
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "nav-link",
+                                attrs: { to: "/report" }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fa fa-pencil-square-o",
+                                  attrs: { "aria-hidden": "true" }
+                                }),
+                                _vm._v(" "),
+                                _c("span", [_vm._v("Report")])
+                              ]
+                            )
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _vm._m(2)
+                        _c(
+                          "li",
+                          { staticClass: "nav-item" },
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "nav-link",
+                                attrs: { to: "/options" }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fa fa-list-alt",
+                                  attrs: { "aria-hidden": "true" }
+                                }),
+                                _vm._v(" "),
+                                _c("span", [_vm._v("Options")])
+                              ]
+                            )
+                          ],
+                          1
+                        )
                       ]
                     )
                   ]
@@ -49885,26 +49948,6 @@ var staticRenderFns = [
       },
       [_c("span", { staticClass: "navbar-toggler-icon" })]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-        _vm._v("Report")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c("a", { staticClass: "nav-link disabled", attrs: { href: "#" } }, [
-        _vm._v("Disabled")
-      ])
-    ])
   }
 ]
 render._withStripped = true
@@ -49921,7 +49964,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(45)
 /* template */
@@ -50801,112 +50844,11 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(48)
 /* template */
 var __vue_template__ = __webpack_require__(49)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\views\\Home.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-11c5acec", Component.options)
-  } else {
-    hotAPI.reload("data-v-11c5acec", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 48 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    // mounted() {
-    //     console.log('Component mounted.')
-    // }
-});
-
-/***/ }),
-/* 49 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("Home")])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-11c5acec", module.exports)
-  }
-}
-
-/***/ }),
-/* 50 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 51 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(3)
-/* script */
-var __vue_script__ = __webpack_require__(58)
-/* template */
-var __vue_template__ = __webpack_require__(59)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -50945,7 +50887,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 58 */
+/* 48 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -51059,81 +51001,108 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-				data: function data() {
-								return {
-												bookingRefList: [],
-												cityList: [],
-												divisionList: [],
-												error: '',
-												totalWeight: '',
-												selectedBookingRef: '',
-												selectedCity: '',
-												selectedDivision: '',
-												startDate: ''
-								};
-				},
-				mounted: function mounted() {
-								this.fetchBookingRef();
-								this.fetchDivisions();
-								this.showDate();
-				},
+    data: function data() {
+        return {
+            bookingRefList: [],
+            cityList: [],
+            divisionList: [],
+            error: '',
+            totalWeight: '',
+            selectedBookingRef: '',
+            selectedCity: '',
+            selectedDivision: '',
+            startDate: ''
+        };
+    },
+    mounted: function mounted() {
+        this.fetchBookingRef();
+        this.fetchDivisions();
+        this.showDate();
+    },
 
-				watch: {
-								selectedDivision: function selectedDivision() {
-												this.fetchCitiesByDivision(this.selectedDivision.id); // this.selectedDivisionId
-								}
-				},
-				methods: {
-								fetchBookingRef: function fetchBookingRef() {
-												//this.loading = true;
-												this.bookingRefList = [];
-												var vm = this;
-												//axios.get('api/bus?q=' + busId) //--> admin/api/bus?q=xyz  (wrong)
-												axios.get('/api/booking') //--> api/bus?q=xyz        (right)
-												.then(function (response) {
-																response.data.error ? vm.error = response.data.error : vm.bookingRefList = response.data;
-																//vm.loading = false;                  
-												});
-								},
-								fetchCitiesByDivision: function fetchCitiesByDivision(divisionId) {
-												//this.loading = true;
-												//this.cityList= [];            
-												var vm = this;
-												//axios.get('api/bus?q=' + busId) //--> admin/api/bus?q=xyz  (wrong)
-												axios.get('/api/districts?q=' + divisionId) //--> /api/bus?q=xyz        (right)
-												.then(function (response) {
-																response.data.error ? vm.error = response.data.error : vm.cityList = response.data;
-																//vm.loading = false;                  
-												});
-								},
-								fetchDivisions: function fetchDivisions() {
-												//this.loading = true;
-												this.divisionList = [];
-												var vm = this;
-												//axios.get('api/bus?q=' + busId) //--> admin/api/bus?q=xyz  (wrong)
-												axios.get('/api/divisions') //--> api/bus?q=xyz        (right)
-												.then(function (response) {
-																response.data.error ? vm.error = response.data.error : vm.divisionList = response.data;
-																//vm.loading = false;                  
-												});
-								},
-								showDate: function showDate() {
-												var vm = this;
-												$('#sandbox-container .input-group.date').datepicker({
-																format: 'dd-mm-yyyy',
-																startDate: '0d',
-																todayHighlight: true,
-																autoclose: true
-												}).on("changeDate", function () {
-																vm.startDate = $('#sandbox-container #startDate').val();
-												});
-								}
-				}
+    watch: {
+        selectedDivision: function selectedDivision() {
+            this.fetchCitiesByDivision(this.selectedDivision.id); // this.selectedDivisionId
+        }
+    },
+    methods: {
+        fetchBookingRef: function fetchBookingRef() {
+            //this.loading = true;
+            this.bookingRefList = [];
+            var vm = this;
+            //axios.get('api/bus?q=' + busId) //--> admin/api/bus?q=xyz  (wrong)
+            axios.get('/api/booking') //--> api/bus?q=xyz        (right)
+            .then(function (response) {
+                response.data.error ? vm.error = response.data.error : vm.bookingRefList = response.data;
+                //vm.loading = false;                  
+            });
+        },
+        fetchCitiesByDivision: function fetchCitiesByDivision(divisionId) {
+            //this.loading = true;
+            //this.cityList= [];            
+            var vm = this;
+            //axios.get('api/bus?q=' + busId) //--> admin/api/bus?q=xyz  (wrong)
+            axios.get('/api/districts?q=' + divisionId) //--> /api/bus?q=xyz        (right)
+            .then(function (response) {
+                response.data.error ? vm.error = response.data.error : vm.cityList = response.data;
+                //vm.loading = false;                  
+            });
+        },
+        fetchDivisions: function fetchDivisions() {
+            //this.loading = true;
+            this.divisionList = [];
+            var vm = this;
+            //axios.get('api/bus?q=' + busId) //--> admin/api/bus?q=xyz  (wrong)
+            axios.get('/api/divisions') //--> api/bus?q=xyz        (right)
+            .then(function (response) {
+                response.data.error ? vm.error = response.data.error : vm.divisionList = response.data;
+                //vm.loading = false;                  
+            });
+        },
+        saveShipmentInfo: function saveShipmentInfo() {
+            var vm = this;
+
+            var receivingAddress = this.selectedCity.name + ', ' + this.selectedDivision.name;
+
+            axios.post('/shipment', {
+                booking_id: this.selectedBookingRef.id,
+                date: this.startDate,
+                total_weight: this.totalWeight,
+                receiving_address: receivingAddress
+            }).then(function (response) {
+                //console.log(response.data);
+                response.data.error ? vm.error = response.data.error : vm.response = response.data;
+                // if (vm.response) {
+                //    //console.log(vm.response);
+                //    vm.fetchBusAvailableToCities();
+                //    vm.SortByCityNameBusAvailableToCityList(vm.busAvailableToCityList);
+                //    vm.loading = false;
+                //    vm.disableSaveButton = true;
+                //    vm.cityAddedAlert(vm.selectedCity.name);
+                //    vm.reset();
+                //    return;                   
+                // }
+                // vm.loading = false;
+                //vm.disableSaveButton = true;
+            });
+        },
+        showDate: function showDate() {
+            var vm = this;
+            $('#sandbox-container .input-group.date').datepicker({
+                format: 'dd-mm-yyyy',
+                startDate: '0d',
+                todayHighlight: true,
+                autoclose: true
+            }).on("changeDate", function () {
+                vm.startDate = $('#sandbox-container #startDate').val();
+            });
+        }
+    }
 
 });
 
 /***/ }),
-/* 59 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -51272,7 +51241,7 @@ var render = function() {
                   staticClass: "col-sm-3 col-form-label",
                   attrs: { for: "totalWeight" }
                 },
-                [_vm._v("weight")]
+                [_vm._v("Total Weight")]
               ),
               _vm._v(" "),
               _c("div", { staticClass: "col-sm-4" }, [
@@ -51453,7 +51422,7 @@ var render = function() {
                     on: {
                       click: function($event) {
                         $event.preventDefault()
-                        _vm.saveBookingInfo()
+                        _vm.saveShipmentInfo()
                       }
                     }
                   },
@@ -51500,7 +51469,114 @@ if (false) {
 }
 
 /***/ }),
-/* 60 */
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(51)
+/* template */
+var __vue_template__ = __webpack_require__(52)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\views\\Home.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-11c5acec", Component.options)
+  } else {
+    hotAPI.reload("data-v-11c5acec", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 51 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    // mounted() {
+    //     console.log('Component mounted.')
+    // }
+});
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("h1", [_vm._v("Home")])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-11c5acec", module.exports)
+  }
+}
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!

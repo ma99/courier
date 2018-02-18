@@ -13,23 +13,39 @@
 
                       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                          <li class="nav-item active">
-                            <!-- {{-- <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> --}} -->
-                            <router-link to="/main" exact class="nav-link"><i class="fa fa-clock-o"></i> <span>Home</span></router-link>
-                          </li>
                           <li class="nav-item">
-                            <!-- {{-- <a class="nav-link" href="#">Booking</a> --}} -->
-                            <router-link to="/booking" class="nav-link"><i class="fa fa-table" aria-hidden="true"></i><span>Booking</span></router-link>
+                            <!-- {{-- <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> --}} -->
+                            <router-link to="/main" exact class="nav-link">
+                              <i class="fa fa-home" aria-hidden="true"></i>
+                              <span>Home</span>
+                            </router-link>
+                          </li>
+                          <li class="nav-item">                            
+                            <router-link to="/booking" class="nav-link">
+                              <i class="fa fa-table" aria-hidden="true"></i>
+                              <span>Booking</span>
+                            </router-link>
                           </li>
                           <li class="nav-item">
                             <!-- <a class="nav-link" href="#">Shipment</a> -->
-                            <router-link to="/shipment" class="nav-link"><i class="fa fa-table" aria-hidden="true"></i><span>Shipment</span></router-link>
+                            <router-link to="/shipment" class="nav-link">
+                              <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                              <span>Shipment</span>
+                            </router-link>
                           </li>
                            <li class="nav-item">
-                            <a class="nav-link" href="#">Report</a>
+                            <!-- <a class="nav-link" href="#">Report</a> -->
+                            <router-link to="/report" class="nav-link">
+                              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                              <span>Report</span>
+                            </router-link>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link disabled" href="#">Disabled</a>
+                            <!-- <a class="nav-link disabled" href="#">Disabled</a> -->
+                            <router-link to="/options" class="nav-link">
+                              <i class="fa fa-list-alt" aria-hidden="true"></i>
+                              <span>Options</span>
+                            </router-link>
                           </li>
                         </ul>                        
                       </div>

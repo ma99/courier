@@ -46,7 +46,7 @@
 
 
             <div class="form-group row">
-              <label for="totalWeight" class="col-sm-3 col-form-label">weight</label>
+              <label for="totalWeight" class="col-sm-3 col-form-label">Total Weight</label>
               <div class="col-sm-4">
                 <input type="text" class="form-control" id="totalWeight" placeholder="Total weight" v-model="totalWeight">
               </div>
@@ -92,7 +92,7 @@
             
             <div class="form-group row">
               <div class="col-sm-4">
-                <button type="submit" class="btn btn-primary" v-on:click.prevent="saveBookingInfo()">Save</button>
+                <button type="submit" class="btn btn-primary" v-on:click.prevent="saveShipmentInfo()">Save</button>
               </div>
             </div>
          </form> 
@@ -166,6 +166,35 @@
 	                   //vm.loading = false;                  
 	            });
 	        },
+           saveShipmentInfo() {
+            var vm = this;
+            
+            var receivingAddress = this.selectedCity.name + ', ' + 
+                                   this.selectedDivision.name;
+
+            axios.post('/shipment', {
+                booking_id: this.selectedBookingRef.id,
+                date: this.startDate,
+                total_weight: this.totalWeight,              
+                receiving_address: receivingAddress,
+            })          
+            .then(function (response) {
+                //console.log(response.data);
+                response.data.error ? vm.error = response.data.error : vm.response = response.data;
+                // if (vm.response) {
+                //    //console.log(vm.response);
+                //    vm.fetchBusAvailableToCities();
+                //    vm.SortByCityNameBusAvailableToCityList(vm.busAvailableToCityList);
+                //    vm.loading = false;
+                //    vm.disableSaveButton = true;
+                //    vm.cityAddedAlert(vm.selectedCity.name);
+                //    vm.reset();
+                //    return;                   
+                // }
+                // vm.loading = false;
+                //vm.disableSaveButton = true;
+            });
+          },
 
 	        showDate() {
 	          var vm = this;
