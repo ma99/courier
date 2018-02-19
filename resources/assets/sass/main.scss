@@ -3,9 +3,38 @@ a.nav-link.router-link-exact-active.router-link-active,
 	color: #3c8dbc;
 	font-weight: 600;
 }
-form {
-	font-size: 16px;
-}
+// form {
+// 	font-size: 16px;
+// }
 section.content {
-    margin-top: 5rem;
+    margin-top: 4rem;
+}
+
+@media print {
+  // div {
+  //   //color: red;
+  //   // margin-bottom: 100px;
+  //   // margin-left: 100px;
+  // }
+  div.ref-no {
+  	//color: red;
+  	font-size: 12px;
+  	margin-top: 90px;
+  	margin-left: 90px;
+  }
+  div.print-area {
+  	margin-top: 20px;
+  	margin-left: 100px;
+  	//margin-left: 150px;
+  	//color: yellow;
+  	p {
+  		font-size: 17x;
+  		//font-weight: 700;
+  		span {
+  			border-bottom: 1px solid;
+  			margin-right: 10px;
+  		}
+  	}
+  }
+
 }

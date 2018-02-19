@@ -18,54 +18,60 @@
         <div class="col-8">          
          <form>
             <div class="form-group row">
-              <label for="inputBookingRef" class="col-sm-3 col-form-label">Booking Ref No</label>
+              <label for="inputBookingRef" class="col-sm-3 col-form-label">Reference No.</label>
               <div class="col-sm-6">
                 <input type="text" class="form-control" id="inputBookingRef" v-model="bookingRef" disabled>
               </div>
             </div>
 
-            <div class="form-group row">
-              <label for="senderName" class="col-sm-3 col-form-label">Sender Name</label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" id="senderName" placeholder="Sender Name" v-model="sender.name">
+            <div class="booking-info">
+              <span class="sender">Sender</span>
+              <div class="form-group row">
+                <label for="senderName" class="col-sm-3 col-form-label">Name</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="senderName" placeholder="Sender Name" v-model="sender.name">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="senderPhone" class="col-sm-3 col-form-label">Phone</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="senderPhone" placeholder="Sender Phone" v-model="sender.phone">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="senderAddress" class="col-sm-3 col-form-label">Address</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="senderAddress" placeholder="Sender address" v-model="sender.address">
+                </div>
               </div>
             </div>
 
-            <div class="form-group row">
-              <label for="senderPhone" class="col-sm-3 col-form-label">Sender Phone</label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" id="senderPhone" placeholder="Sender Phone" v-model="sender.phone">
+            <div class="booking-info">    
+              <span class="receiver">Receiver</span>
+              <div class="form-group row">
+                <label for="receiverName" class="col-sm-3 col-form-label">Name</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="receiverName" placeholder="Receiver Name" v-model="receiver.name">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="receiverPhone" class="col-sm-3 col-form-label">Phone</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="receiverPhone" placeholder="Receiver Phone" v-model="receiver.phone">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="receiverAddress" class="col-sm-3 col-form-label">Address</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="receiverAddress" placeholder="Receiver address" v-model="receiver.address">
+                </div>
               </div>
             </div>
 
-            <div class="form-group row">
-              <label for="senderAddress" class="col-sm-3 col-form-label">Sender Address</label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" id="senderAddress" placeholder="Sender address" v-model="sender.address">
-              </div>
-            </div>
-
-
-            <div class="form-group row">
-              <label for="receiverName" class="col-sm-3 col-form-label">Receiver Name</label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" id="receiverName" placeholder="Receiver Name" v-model="receiver.name">
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="receiverPhone" class="col-sm-3 col-form-label">Receiver Phone</label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" id="receiverPhone" placeholder="Receiver Phone" v-model="receiver.phone">
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="receiverAddress" class="col-sm-3 col-form-label">Receiver address</label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" id="receiverAddress" placeholder="Receiver address" v-model="receiver.address">
-              </div>
-            </div>
             
            <!--  <fieldset class="form-group">
               <div class="row">
@@ -102,11 +108,11 @@
             <!-- <div class="receiving-address" v-show="(homeDelivery == 'Yes') ? false : true"> -->
             <div class="receiving-address" v-show="!homeDelivery">
               <div class="form-group row">
-                <label for="receivingAddress" class="col-sm-3 col-form-label">Receiving address</label>
+                <label for="receivingAddress" class="col-sm-3 col-form-label">Receiving Address</label>
                 
                   <div class="col-sm-3">
                     <div class="form-group">
-                      <label for="divisionName">Division Name</label>
+                      <label for="divisionName">Division</label>
                       <select v-model="selectedDivision" class="form-control" id="divisionName">
                           <option disabled value="">Please select one</option>
                           <option v-for="division in divisionList" v-bind:value="{ id: division.id, name: division.name }">
@@ -118,7 +124,7 @@
 
                   <div class="col-sm-3">
                     <div class="form-group">
-                      <label for="cityName">District Name </label>                       
+                      <label for="cityName">District</label>                       
                       <select v-model="selectedCity" class="form-control" id="cityName">
                           <option disabled value="">Please select one</option>                          
                           <option v-for="city in cityList" v-bind:value="{ id: city.id, name: city.name }">
@@ -130,7 +136,7 @@
 
                   <div class="col-sm-3">
                     <div class="form-group">
-                      <label for="areaName">Area Name </label>
+                      <label for="areaName">Area</label>
                       <input type="text" v-model="areaName" class="form-control" id="areaName">                        
                       </input>
                     </div>
@@ -140,7 +146,7 @@
             <loader :show="loading"></loader>
             <div class="form-group row">
               <div class="col-sm-4">
-                <button type="submit" class="btn btn-primary" v-on:click.prevent="saveBookingInfo()">Save</button>
+                <button type="submit" class="btn btn-primary btn-lg" v-on:click.prevent="saveBookingInfo()" :disabled="!isValid">Save</button>
               </div>
             </div>
          </form> 
@@ -185,6 +191,29 @@
             selectedDivision() {
                 this.fetchCitiesByDivision(this.selectedDivision.id); // this.selectedDivisionId
             },            
+        },
+        computed: {
+          isValid() {   
+            if (this.homeDelivery == false) {
+              return this.sender.name != '' && 
+                    this.sender.address != '' &&
+                    this.sender.phone != '' &&
+                    this.receiver.name != '' && 
+                    this.receiver.address != '' &&
+                    this.receiver.phone != '' &&
+                    this.selectedDivision != '' &&
+                    this.selectedCity != '' &&
+                    this.areaName != ''
+            }
+
+            return this.sender.name != '' && 
+                    this.sender.address != '' &&
+                    this.sender.phone != '' &&
+                    this.receiver.name != '' && 
+                    this.receiver.address != '' &&
+                    this.receiver.phone != '' 
+
+          }
         },
         methods: {
            fetchCitiesByDivision(divisionId) {
@@ -271,3 +300,35 @@
         }
     }
 </script>
+
+<style lang="scss" scoped>
+  .booking-info {
+      border: 1px dashed lightblue;
+      // padding: 25px 10px;
+      // margin: 25px 25px 50px 25px;
+      padding: 30px 10px 10px 15px;
+      margin: 40px 0px;
+      position: relative;
+      text-align: center; 
+      span {
+        /* background-color: lightblue; */
+        display: block;
+        font-weight: 600;
+        letter-spacing: 1px;        
+        left: 14px;
+        top: -16px;
+        position: absolute;
+        padding: 5px 10px;
+        width: auto;
+      }
+      .sender {
+        @extend span;
+        background-color: lightblue;
+      }
+      .receiver {
+        @extend span;
+        background-color: lightgreen;
+      }
+  } 
+
+</style>

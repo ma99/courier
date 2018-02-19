@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Booking;
 use App\Shipment;
+use App\Receiver;
 
 
 class ShipmentController extends Controller
@@ -25,33 +26,34 @@ class ShipmentController extends Controller
        	$totalWeight = $this->request->input('total_weight');
        	$receivingAddress = $this->request->input('receiving_address');
 
-       	
-
-     //   	$customer = Customer::updateOrCreate(
-    	//     ['name' => $senderName, 'phone' => $senderPhone],
-    	//     ['address' => $senderAddress]
-    	// );
         $date = date("Y-m-d", strtotime($shipmentDate));
 
     	$shipment = Shipment::create([
     		'booking_id' => $bookingId,
     		'date' => $date,
-    		'weight' => $totalWeight,
+    		'weight' => round($totalWeight),
     		'location' => $receivingAddress,
     	]);
 
-        $this->updateBooking($bookingId);
-    	
+        $receiver = Receiver::where('booking_id', $bookingId)->first();
 
-    	return $shipment;
+        $bookingRef = $this->updateBookingAndReturnRef($bookingId);
 
+        return response()->json([
+            'receiver_name' => strtoupper($receiver->name),
+            'receiver_phone' => $receiver->phone,
+            'receiver_address' => strtoupper($receiver->address),
+            //'receiver_address' => strtoupper($receivingAddress),
+            'total_weight' => round($totalWeight),
+            'booking_ref' => $bookingRef
+        ]);
    }
 
-   public function updateBooking($bookingId)
+   public function updateBookingAndReturnRef($bookingId)
    {
        $booking = Booking::find($bookingId);
         $booking->shipment_info = true;
         $booking->save();
+        return $booking->booking_ref;
    }
-
 }

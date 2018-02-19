@@ -5,11 +5,29 @@ a.nav-link.router-link-exact-active.router-link-active,
   font-weight: 600;
 }
 
-form {
-  font-size: 16px;
+section.content {
+  margin-top: 4rem;
 }
 
-section.content {
-  margin-top: 5rem;
+@media print {
+  div.ref-no {
+    font-size: 12px;
+    margin-top: 90px;
+    margin-left: 90px;
+  }
+
+  div.print-area {
+    margin-top: 20px;
+    margin-left: 100px;
+  }
+
+  div.print-area p {
+    font-size: 17x;
+  }
+
+  div.print-area p span {
+    border-bottom: 1px solid;
+    margin-right: 10px;
+  }
 }
 
