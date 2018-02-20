@@ -8,6 +8,13 @@
         <!-- <small>Optional description</small> -->
       </h2>
       <hr>      
+      <div class="alert-area">
+        <show-alert :show.sync="showAlert" :type="alertType"> 
+              <!-- altert type can be info/warning/danger -->
+              <strong>Booking </strong> has been 
+              <strong> Added </strong> successfully!
+            </show-alert>
+      </div>
     </section>
 
     <!-- Main content -->
@@ -71,7 +78,6 @@
                 </div>
               </div>
             </div>
-
             
            <!--  <fieldset class="form-group">
               <div class="row">
@@ -97,10 +103,7 @@
               <div class="col-sm-3">Home Delivery</div>
               <div class="col-sm-4">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="gridCheck1" v-model="homeDelivery">
-                  <!-- <label class="form-check-label" for="gridCheck1">
-                    Example checkbox
-                  </label> -->
+                  <input class="form-check-input" type="checkbox" id="gridCheck1" v-model="homeDelivery">                  
                 </div>
               </div>
             </div>        
@@ -162,6 +165,7 @@
         data() {
           return {
             areaName: '',
+            alertType: 'success',
             bookingRef: '',
             cityList: [],
             divisionList: [],
@@ -169,6 +173,7 @@
             homeDelivery: false,
             loading: false,
             //receivingAddress: '',
+            showAlert: false,
             selectedCity: '',
             selectedDivision: '',
             sender: {
@@ -266,9 +271,6 @@
                                         this.selectedDivision.name;
 
             }
-
-
-            console.log('radddd=', receivingAddress);
             
             axios.post('/booking', {
                 booking_ref: this.bookingRef,
@@ -291,9 +293,24 @@
                 //    return;                   
                 // }
                 vm.loading = false;
+                vm.alertType = 'info';                          
+                vm.showAlert= true;
+                vm.reset();
+                vm.setBookingRef();
                 //vm.disableSaveButton = true;
             });
           },
+          reset() {
+                this.sender.name = '' ; 
+                this.sender.address = '' ;
+                this.sender.phone = '' ;
+                this.receiver.name = '' ; 
+                this.receiver.address = '' ;
+                this.receiver.phone = '' ;
+                this.selectedDivision = '' ;
+                this.selectedCity = '' ;
+                this.areaName = '';
+;        },
           setBookingRef() {
             this.bookingRef = this.fetchDate();
           },
