@@ -53135,6 +53135,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.selectedDivision = '';
       this.selectedCity = '';
       this.areaName = '';
+      this.homeDelivery = false;
       ;
     },
     setBookingRef: function setBookingRef() {

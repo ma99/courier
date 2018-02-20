@@ -310,6 +310,7 @@
                 this.selectedDivision = '' ;
                 this.selectedCity = '' ;
                 this.areaName = '';
+                this.homeDelivery = false;
 ;        },
           setBookingRef() {
             this.bookingRef = this.fetchDate();
