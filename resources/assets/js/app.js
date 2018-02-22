@@ -27,6 +27,7 @@ import App from './views/App'
 import Booking from './views/Booking'
 import Shipment from './views/Shipment'
 import Home from './views/Home'
+import Home from './views/Report'
 
 const router = new VueRouter({
     mode: 'history',

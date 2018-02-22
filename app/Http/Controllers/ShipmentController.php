@@ -11,7 +11,7 @@ use App\Receiver;
 
 class ShipmentController extends Controller
 {
-    protected $request;
+  protected $request;
 
    public function __construct(Request $request)
    {

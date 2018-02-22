@@ -33,13 +33,15 @@
                               <span>Shipment</span>
                             </router-link>
                           </li>
-                           <li class="nav-item">
+                          
+                          <li class="nav-item">
                             <!-- <a class="nav-link" href="#">Report</a> -->
                             <router-link to="/report" class="nav-link">
                               <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                               <span>Report</span>
                             </router-link>
                           </li>
+                          
                           <li class="nav-item">
                             <!-- <a class="nav-link disabled" href="#">Disabled</a> -->
                             <router-link to="/options" class="nav-link">
@@ -47,6 +49,32 @@
                               <span>Options</span>
                             </router-link>
                           </li>
+
+                          <!-- <li class="nav-item" v-show="isAdmin">
+                            <router-link to="/settings" class="nav-link">
+                              <i class="fa fa-cogs" aria-hidden="true"></i>
+                              <span>Settings</span>
+                            </router-link>
+                          </li> -->
+                          <li class="nav-item">                            
+                            <div class="dropdown">
+                               <a class="dropdown-toggle nav-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-cogs" aria-hidden="true"></i>
+                                  Settings
+                                </a>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <router-link to="/settings" class="dropdown-item">
+                                  <i class="fa fa-cogs" aria-hidden="true"></i>
+                                  <span>Settings</span>
+                                </router-link>
+                                <a class="dropdown-item" href="#">Add User</a>
+                                <a class="dropdown-item" href="#">Change Password</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                              </div>
+                            </div>
+                          </li>
+
+
                         </ul>                        
                       </div>
                     </nav>
@@ -63,8 +91,26 @@
 
 <script>
     export default {
-        // mounted() {
-        //     console.log('Component mounted.')
-        // }
+        data() {          
+          return {
+            isAdmin: false,
+            //userInfo:'' ,
+          } 
+        },
+        mounted() {
+          //console.log('Component mounted.')
+          this.userIsAdmin();
+        },
+        methods: {
+          userIsAdmin() {
+            var vm = this;
+            axios.get('/user') 
+                  .then(function (response) {                  
+                     response.data.error ? vm.error = response.data.error : vm.isAdmin = response.data;
+                     //vm.loading = false;                  
+              });
+          }
+        }
+
     }
 </script>

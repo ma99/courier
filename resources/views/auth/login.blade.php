@@ -11,7 +11,7 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                             <label for="email" class="col-sm-4 col-form-label text-md-right">E-Mail Address</label>
 
                             <div class="col-md-6">
@@ -23,20 +23,58 @@
                                     </span>
                                 @endif
                             </div>
+                        </div> --}}
+
+                        {{-- <div class="form-group row">
+                            <label for="email" class="col-sm-4 col-form-label text-md-right">User Name</label>
+
+                            <div class="col-md-6">
+                                <input id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus>
+
+                                @if ($errors->has('username'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('username') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div> --}}
+
+                        <div class="form-group row">
+                            <label for="username" class="col-sm-4 col-form-label text-md-right">User Name</label>
+                            <div class="input-group mb-3 col-md-6">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">
+                                    <i class="fa fa-user fa-fw"></i>
+                                </span>
+                              </div>                              
+                              <input id="username" type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus>
+
+                                @if ($errors->has('username'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('username') }}</strong>
+                                    </span>
+                                @endif
+                            </div>                            
                         </div>
+
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                            <div class="input-group mb-3 col-md-6">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon2">
+                                    <i class="fa fa-key fa-fw"></i>
+                                </span>
+                              </div>                              
+                              <input id="password" type="password" aria-label="Password" aria-describedby="basic-addon2" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" value="{{ old('password') }}" required autofocus>
 
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                                 @endif
-                            </div>
+                            </div>     
                         </div>
 
                         <div class="form-group row">

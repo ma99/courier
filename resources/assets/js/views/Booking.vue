@@ -12,7 +12,7 @@
         <show-alert :show.sync="showAlert" :type="alertType"> 
               <!-- altert type can be info/warning/danger -->
               <strong>Booking </strong> has been 
-              <strong> Added </strong> successfully!
+              <strong> Saved </strong> successfully!
             </show-alert>
       </div>
     </section>
