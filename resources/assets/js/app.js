@@ -27,7 +27,7 @@ import App from './views/App'
 import Booking from './views/Booking'
 import Shipment from './views/Shipment'
 import Home from './views/Home'
-import Home from './views/Report'
+import Report  from './views/Report'
 
 const router = new VueRouter({
     mode: 'history',
@@ -45,6 +45,10 @@ const router = new VueRouter({
         {
             path: '/shipment',            
             component: Shipment
+        },
+        {
+            path: '/report',            
+            component: Report
         },
     ],
 });

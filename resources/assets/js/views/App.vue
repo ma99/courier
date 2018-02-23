@@ -56,7 +56,7 @@
                               <span>Settings</span>
                             </router-link>
                           </li> -->
-                          <li class="nav-item">                            
+                          <li class="nav-item" v-show="isAdmin">                            
                             <div class="dropdown">
                                <a class="dropdown-toggle nav-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-cogs" aria-hidden="true"></i>

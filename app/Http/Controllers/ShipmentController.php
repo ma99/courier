@@ -56,4 +56,21 @@ class ShipmentController extends Controller
         $booking->save();
         return $booking->booking_ref;
    }
+
+   public function search()
+   {
+       $startDate = date("Y-m-d", strtotime($this->request->input('start_date')));
+       $endDate = date("Y-m-d", strtotime($this->request->input('end_date')));
+       $booking = Shipment::whereBetween('date', [$startDate, $endDate])->get();
+       
+       $totalCustomer = $booking->count('booking_id');
+       $totalWeight = $booking->sum('weight');
+       
+       return response()->json([
+            'total_customer' => $totalCustomer,            
+            'total_weight' => round($totalWeight),            
+        ]);
+
+   }
+
 }
