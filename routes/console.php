@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Inspiring;
+use Illuminate\Http\Request;
 
 use App\user;
 
@@ -19,7 +20,7 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
 
-Artisan::command('make:admin', function () {
+Artisan::command('make:admin', function (Request $request) {
     $user = User::where('username', 'admin')->first();
 
     if ($user) {
@@ -28,6 +29,11 @@ Artisan::command('make:admin', function () {
     }
     //$password = $this->secret('Password:');
     $password = $this->ask('Password:');
+    while (strlen($password) < 6) {
+        $this->error('Password too short. Enter minimum 6 charecter pls...');
+        $password = $this->ask('Password:');
+    }
+
     User::create([
             'name' => 'Administrator',
             'username' => 'admin',
