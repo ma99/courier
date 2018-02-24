@@ -9,6 +9,10 @@ section.content {
   margin-top: 4rem;
 }
 
+li.nav-item .fa {
+  margin: 0 0.315rem 0 0.63rem;
+}
+
 @media print {
   div.ref-no {
     font-size: 12px;

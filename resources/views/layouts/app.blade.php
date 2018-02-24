@@ -50,12 +50,19 @@
                                                      document.getElementById('logout-form').submit();">
                                         Logout
                                     </a>
-
+                                    <a class="dropdown-item" href="{{ route('password.change.form')}}" {{-- onclick="event.preventDefault();" --}}>
+                                        Change Password
+                                    </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
                                 </div>
                             </li>
+                            {{-- <li>
+                                <a href="/changePassword">
+                                   Change Password
+                                </a>
+                            </li> --}}
                         @endguest
                     </ul>
                 </div>
