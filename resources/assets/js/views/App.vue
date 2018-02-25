@@ -63,10 +63,18 @@
                                   Settings
                                 </a>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <router-link to="/settings" class="dropdown-item">
-                                  <i class="fa fa-cogs" aria-hidden="true"></i>
-                                  <span>Settings</span>
-                                </router-link>
+                                <span>                                  
+                                  <router-link to="/settings" class="dropdown-item">
+                                    <i class="fa fa-cogs" aria-hidden="true"></i>
+                                    <span>Settings</span>
+                                  </router-link>
+                                </span>
+                                <span>
+                                  <router-link to="/register" class="dropdown-item">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span>Add New User</span>
+                                  </router-link>
+                              </span>
                                 <a class="dropdown-item" href="#">Add User</a>
                                 <a class="dropdown-item" href="#">Change Password</a>
                                 <a class="dropdown-item" href="#">Something else here</a>

@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
+use App\User;
 
-class UserController extends Controller
+
+class UsersController extends Controller
 {
     
    protected $request;
@@ -20,11 +22,15 @@ class UserController extends Controller
 
     public function index()
     {
-      if (auth()->check()) {
-        $user = auth()->user();
-        return ($user->username == 'admin') ? 'true' : 'false';
-       }
-       return 'false';
+      // if (auth()->check()) {
+      //   $user = auth()->user();
+      //   return ($user->username == 'admin') ? 'true' : 'false';
+      //  }
+      //  return 'false';
+      //return $user->isAdministrator();
+      return auth()->user()->isAdministrator();
+
+
     }
 
     public function showChangePasswordForm(){
@@ -53,6 +59,6 @@ class UserController extends Controller
           ])->save();
           return redirect()->back()->with("success","Password changed successfully !");
     
-    }
+    }   
 
 }

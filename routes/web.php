@@ -18,10 +18,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/changePassword','UserController@showChangePasswordForm')->name('password.change.form');
-Route::post('/changePassword','UserController@changePassword')->name('password.change');
+Route::get('/changePassword','UsersController@showChangePasswordForm')->name('password.change.form');
+Route::post('/changePassword','UsersController@changePassword')->name('password.change');
 
-Route::get('/user', 'UserController@index');
+Route::get('/user', 'UsersController@index');
+
+//Route::get('/userRegister', 'UserController@showRegisterForm');
+Route::post('/register-user', 'Admin\AdminUserController@addNewUser')->name('register.user');
 
 Route::get('/main', function () {
     return view('main.main');

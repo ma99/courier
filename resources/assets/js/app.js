@@ -6,6 +6,9 @@ window.Vue = require('vue');
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
+import VeeValidate from 'vee-validate';
+Vue.use(VeeValidate);
+
 
 //Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
@@ -28,6 +31,8 @@ import Booking from './views/Booking'
 import Shipment from './views/Shipment'
 import Home from './views/Home'
 import Report  from './views/Report'
+import Register  from './views/Register'
+
 
 const router = new VueRouter({
     mode: 'history',
@@ -49,6 +54,11 @@ const router = new VueRouter({
         {
             path: '/report',            
             component: Report
+        },
+        {
+            path: '/register', 
+            'name': 'register',           
+            component: Register
         },
     ],
 });
