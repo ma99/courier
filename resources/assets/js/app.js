@@ -56,7 +56,7 @@ const router = new VueRouter({
             component: Report
         },
         {
-            path: '/register', 
+            path: '/user-register', 
             'name': 'register',           
             component: Register
         },

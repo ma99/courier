@@ -12,7 +12,7 @@ use App\User;
 class UsersController extends Controller
 {
     
-   protected $request;
+   //protected $request;
 
    public function __construct()
    {
@@ -30,7 +30,11 @@ class UsersController extends Controller
       //return $user->isAdministrator();
       return auth()->user()->isAdministrator();
 
+    }
 
+    public function isRegisteredUser()
+    {
+      return (auth()->check()) ? 'true' : 'false';
     }
 
     public function showChangePasswordForm(){

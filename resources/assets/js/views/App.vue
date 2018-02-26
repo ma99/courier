@@ -70,7 +70,7 @@
                                   </router-link>
                                 </span>
                                 <span>
-                                  <router-link to="/register" class="dropdown-item">
+                                  <router-link to="/user-register" class="dropdown-item">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                     <span>Add New User</span>
                                   </router-link>
@@ -88,8 +88,16 @@
                     </nav>
                 </div> 
 
-                <div class="card-body">                   
+                <div class="card-body" v-show="!error">                   
                     <router-view></router-view>                    
+                </div>
+                <div class="card-body" v-show="error">
+                    <div class="alert alert-warning" role="alert">
+                          <h4 class="alert-heading">Sorry!</h4>
+                          <hr>
+                          <p>You are not <strong> Authorized </strong> to use this program.</p>
+                          <!-- <p class="mb-0">Please log in to use.</p> -->
+                    </div>                   
                 </div>
             </div>
         </div>
@@ -101,15 +109,33 @@
     export default {
         data() {          
           return {
+            //disable: false,
             isAdmin: false,
+            isUser: false,
+            error: '',
             //userInfo:'' ,
           } 
         },
         mounted() {
           //console.log('Component mounted.')
-          this.userIsAdmin();
-        },
+          this.isRegisteredUser();
+        },       
         methods: {
+          isRegisteredUser() {
+            var vm = this;
+            axios.get('/is-registered-user') 
+                  .then(function (response) {                  
+                         response.data.error ? vm.error = response.data.error : vm.isUser = response.data;                         
+                         if (vm.isUser == true) {
+                          vm.userIsAdmin();
+                         }
+                    })
+                    .catch(function (error) {
+                        vm.error = error.response.data.message;
+                        console.log(error.response.data.message);
+                    });
+
+          },
           userIsAdmin() {
             var vm = this;
             axios.get('/user') 

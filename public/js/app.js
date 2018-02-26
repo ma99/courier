@@ -30505,7 +30505,7 @@ var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
         path: '/report',
         component: __WEBPACK_IMPORTED_MODULE_6__views_Report___default.a
     }, {
-        path: '/register',
+        path: '/user-register',
         'name': 'register',
         component: __WEBPACK_IMPORTED_MODULE_7__views_Register___default.a
     }]
@@ -76139,20 +76139,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      isAdmin: false
+      //disable: false,
+      isAdmin: false,
+      isUser: false,
+      error: ''
       //userInfo:'' ,
     };
   },
   mounted: function mounted() {
     //console.log('Component mounted.')
-    this.userIsAdmin();
+    this.isRegisteredUser();
   },
 
   methods: {
+    isRegisteredUser: function isRegisteredUser() {
+      var vm = this;
+      axios.get('/is-registered-user').then(function (response) {
+        response.data.error ? vm.error = response.data.error : vm.isUser = response.data;
+        if (vm.isUser == true) {
+          vm.userIsAdmin();
+        }
+      }).catch(function (error) {
+        vm.error = error.response.data.message;
+        console.log(error.response.data.message);
+      });
+    },
     userIsAdmin: function userIsAdmin() {
       var vm = this;
       axios.get('/user').then(function (response) {
@@ -76364,7 +76387,7 @@ var render = function() {
                                         "router-link",
                                         {
                                           staticClass: "dropdown-item",
-                                          attrs: { to: "/register" }
+                                          attrs: { to: "/user-register" }
                                         },
                                         [
                                           _c("i", {
@@ -76418,7 +76441,38 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [_c("router-view")], 1)
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.error,
+                  expression: "!error"
+                }
+              ],
+              staticClass: "card-body"
+            },
+            [_c("router-view")],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.error,
+                  expression: "error"
+                }
+              ],
+              staticClass: "card-body"
+            },
+            [_vm._m(2)]
+          )
         ])
       ])
     ])
@@ -76470,6 +76524,26 @@ var staticRenderFns = [
         _vm._v(
           "\n                                Settings\n                              "
         )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "alert alert-warning", attrs: { role: "alert" } },
+      [
+        _c("h4", { staticClass: "alert-heading" }, [_vm._v("Sorry!")]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v("You are not "),
+          _c("strong", [_vm._v(" Authorized ")]),
+          _vm._v(" to use this program.")
+        ])
       ]
     )
   }
@@ -79084,7 +79158,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "\n.alert-area[data-v-8a663ba0] {\n  margin: 1.5rem 1rem 2.5rem 3.5rem;\n}\n", ""]);
 
 // exports
 
@@ -79166,16 +79240,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      alertType: 'warning',
+      alertType: 'success',
       showAlert: false,
       response: '',
+      error: '',
       user: {
         name: '',
-        userName: '',
+        username: '',
         email: '',
         password: '123456'
       }
@@ -79184,18 +79272,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   computed: {
     isValid: function isValid() {
-      return this.user.name != '' && this.user.userName != '' && this.user.email != '' && this.user.password != '' && this.errors.any() == '';
+      return this.user.name != '' && this.user.username != '' && this.user.email != '' && this.user.password != '' && this.errors.any() == '';
     }
   },
   methods: {
+    reset: function reset() {
+      this.user.name == '';
+      this.user.username == '';
+      this.user.email == '';
+      this.user.password == '123456';
+    },
     save: function save() {
       var vm = this;
       axios.post('/register-user', {
         user: this.user
       }).then(function (response) {
-        response.data.error ? vm.error = response.data.error : vm.respons = response.data;
-        console.log(vm.searchInfo);
-        //vm.loading = false;                  
+        response.data.error ? vm.error = response.data.error : vm.response = response.data;
+        //console.log(response.data);
+        if (vm.response == 'Success') {
+          vm.reset();
+          vm.error = '';
+          vm.showAlert = true;
+        }
+      }).catch(function (error) {
+        vm.error = error.response.data.errors;
+        console.log(error.response.data.errors);
       });
     }
   }
@@ -79220,6 +79321,70 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _c("form", [
+                _c(
+                  "div",
+                  { staticClass: "alert-area" },
+                  [
+                    _c(
+                      "show-alert",
+                      {
+                        attrs: { show: _vm.showAlert, type: _vm.alertType },
+                        on: {
+                          "update:show": function($event) {
+                            _vm.showAlert = $event
+                          }
+                        }
+                      },
+                      [
+                        _c("strong", [_vm._v("User ")]),
+                        _vm._v(
+                          " has been \n                                  "
+                        ),
+                        _c("strong", [_vm._v(" Added ")]),
+                        _vm._v(
+                          " successfully!\n                                "
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.error,
+                        expression: "error"
+                      }
+                    ],
+                    staticClass: "alert-area"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "alert alert-warning",
+                        attrs: { role: "alert" }
+                      },
+                      _vm._l(_vm.error, function(value, key, index) {
+                        return _c("div", [
+                          _vm._v(
+                            "\n                                  " +
+                              _vm._s(index + 1) +
+                              ". " +
+                              _vm._s(value) +
+                              "\n                                "
+                          )
+                        ])
+                      })
+                    )
+                  ]
+                ),
+                _vm._v(" "),
                 _c(
                   "div",
                   {
@@ -79293,7 +79458,7 @@ var render = function() {
                         staticClass: "col-md-4 col-form-label text-md-right",
                         attrs: { for: "username" }
                       },
-                      [_vm._v("User Name")]
+                      [_vm._v("User Login Name")]
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-6" }, [
@@ -79302,8 +79467,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.user.userName,
-                            expression: "user.userName"
+                            value: _vm.user.username,
+                            expression: "user.username"
                           },
                           {
                             name: "validate",
@@ -79321,13 +79486,13 @@ var render = function() {
                           required: "",
                           autofocus: ""
                         },
-                        domProps: { value: _vm.user.userName },
+                        domProps: { value: _vm.user.username },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.$set(_vm.user, "userName", $event.target.value)
+                            _vm.$set(_vm.user, "username", $event.target.value)
                           }
                         }
                       }),

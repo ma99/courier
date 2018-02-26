@@ -13,8 +13,21 @@
                 <div class="card-header">Register</div>
 
                 <div class="card-body">
-                    <form>                        
-
+                    <form> 
+                        <div class="alert-area">
+                            <show-alert :show.sync="showAlert" :type="alertType"> 
+                                  <!-- altert type can be info/warning/danger -->
+                                  <strong>User </strong> has been 
+                                  <strong> Added </strong> successfully!
+                                </show-alert>
+                          </div>
+                          <div class="alert-area" v-show="error">
+                            <div class="alert alert-warning" role="alert">
+                                <div v-for="(value, key, index) in error">
+                                  {{ index+1 }}. {{ value }}
+                                </div>
+                            </div>
+                          </div>         
                         <div class="form-group row" :class="{'has-error': errors.has('name') }">
                             <label for="name" class="col-md-4 col-form-label text-md-right">Full Name</label>
 
@@ -26,10 +39,10 @@
                         </div>
 
                         <div class="form-group row" :class="{'has-error': errors.has('username') }">
-                            <label for="username" class="col-md-4 col-form-label text-md-right">User Name</label>
+                            <label for="username" class="col-md-4 col-form-label text-md-right">User Login Name</label>
 
                             <div class="col-md-6">
-                                <input v-model="user.userName" v-validate="'required'" id="username" type="text" class="form-control" name="username" placeholder="Will be used as login to app" required autofocus>
+                                <input v-model="user.username" v-validate="'required'" id="username" type="text" class="form-control" name="username" placeholder="Will be used as login to app" required autofocus>
                             <p class="text-danger" v-if="errors.has('email')">{{ errors.first('username') }}</p>
                             </div>
                         </div>
@@ -73,12 +86,13 @@
     export default {
     	data() {
           return { 
-            alertType: 'warning',                           
+            alertType: 'success',                           
             showAlert: false,
             response: '',
+            error: '',
             user: {
                 name: '',
-                userName: '',
+                username: '',
                 email: '',
                 password: '123456'
             }   
@@ -87,28 +101,45 @@
          computed: {
             isValid() {                
                 return this.user.name != '' && 
-                        this.user.userName != '' &&
+                        this.user.username != '' &&
                         this.user.email != '' &&
                         this.user.password != '' &&
                         this.errors.any() == '' 
             },
         },       
-        methods: {           
+        methods: {
+          reset() {
+            this.user.name == '' ; 
+            this.user.username == '' ;
+            this.user.email == '' ;
+            this.user.password == '123456';            
+          },            
           save() {
             var vm = this;                                   
             axios.post('/register-user', {                
                 user: this.user,                
             })            
             .then(function (response) {                  
-                 response.data.error ? vm.error = response.data.error : vm.respons = response.data;
-                 console.log(vm.searchInfo);
-                 //vm.loading = false;                  
-            });
+                 response.data.error ? vm.error = response.data.error : vm.response = response.data;
+                 //console.log(response.data);
+                 if (vm.response == 'Success') {
+                    vm. reset();
+                    vm.error= '';
+                    vm.showAlert = true; 
+                 }                          
+            })
+            .catch(function (error) {
+                         vm.error = error.response.data.errors;
+                        console.log(error.response.data.errors);
+                    });
           },
       }   
     }
 </script>
 
 <style lang="scss" scoped>
-  
+    .alert-area {
+        margin: 1.5rem 1rem 2.5rem 3.5rem;
+        
+    }
 </style>
