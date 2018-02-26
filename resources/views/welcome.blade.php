@@ -80,7 +80,8 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Designed & Developed By M. Ahmed
+					
                 </div>
 
                 <div class="links">

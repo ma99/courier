@@ -1,11 +1,13 @@
 <?php
 
 Route::get('/', function () {
-    return view('welcome');
+    //return view('welcome');
+    return redirect()->route('main.home');
 });
 
 Auth::routes();
 
+//Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/changePassword','UsersController@showChangePasswordForm')->name('password.change.form');
 Route::post('/changePassword','UsersController@changePassword')->name('password.change');
@@ -18,7 +20,7 @@ Route::post('/register-user', 'Admin\AdminUserController@addNewUser')->name('reg
 
 Route::get('/main', function () {
     return view('main.main');
-});
+})->name('main.home');
 
 Route::get('/{vue?}', function () {
     return view('main.main');           // view('pages.admin')
