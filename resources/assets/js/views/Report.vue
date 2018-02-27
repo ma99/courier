@@ -76,7 +76,7 @@
                 </tr>
                 <tr>
                   <!-- <th scope="row">2</th> -->
-                  <td><strong>Total Weight:</strong></td>
+                  <td><strong>Total Weight (KGs):</strong></td>
                   <td></td>
                   <td>{{searchInfo.total_weight}}</td>
                   <!-- <td>@fat</td> -->

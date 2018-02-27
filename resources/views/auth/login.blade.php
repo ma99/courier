@@ -38,6 +38,13 @@
                                 @endif
                             </div>
                         </div> --}}
+                        <div class="col-sm-8 company-name">
+                            <span>
+                                <h4>                                   
+                                    JMG Cargo Service
+                                </h4>
+                            </span>
+                        </div>
 
                         <div class="form-group row">
                             <label for="username" class="col-sm-4 col-form-label text-md-right">User Name</label>

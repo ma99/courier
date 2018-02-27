@@ -42,13 +42,12 @@
                             </router-link>
                           </li>
                           
-                          <li class="nav-item">
-                            <!-- <a class="nav-link disabled" href="#">Disabled</a> -->
+                          <!-- <li class="nav-item">                            
                             <router-link to="/options" class="nav-link">
                               <i class="fa fa-list-alt" aria-hidden="true"></i>
                               <span>Options</span>
                             </router-link>
-                          </li>
+                          </li> -->
 
                           <!-- <li class="nav-item" v-show="isAdmin">
                             <router-link to="/settings" class="nav-link">
@@ -63,21 +62,24 @@
                                   Settings
                                 </a>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <span>                                  
+                                <!-- <span>                                  
                                   <router-link to="/settings" class="dropdown-item">
                                     <i class="fa fa-cogs" aria-hidden="true"></i>
                                     <span>Settings</span>
                                   </router-link>
-                                </span>
+                                </span> -->
                                 <span>
                                   <router-link to="/user-register" class="dropdown-item">
-                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <i class="fa fa-user-plus" aria-hidden="true"></i>
                                     <span>Add New User</span>
                                   </router-link>
                               </span>
-                                <a class="dropdown-item" href="#">Add User</a>
-                                <a class="dropdown-item" href="#">Change Password</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <!-- <a class="dropdown-item" href="#">
+                                  <i class="fa fa-user-times" aria-hidden="true"></i>
+                                  Delete User
+                                </a> -->
+                                <!-- <a class="dropdown-item" href="#">Change Password</a>
+                                <a class="dropdown-item" href="#">Something else here</a> -->
                               </div>
                             </div>
                           </li>
@@ -95,7 +97,8 @@
                     <div class="alert alert-warning" role="alert">
                           <h4 class="alert-heading">Sorry!</h4>
                           <hr>
-                          <p>You are not <strong> Authorized </strong> to use this program.</p>
+                          <p>You are not <strong> Authorized </strong> to use this program. </p>
+                          <p>Please <strong>Login.</strong></p>
                           <!-- <p class="mb-0">Please log in to use.</p> -->
                     </div>                   
                 </div>

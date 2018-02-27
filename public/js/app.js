@@ -76147,6 +76147,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -76311,29 +76314,6 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "li",
-                          { staticClass: "nav-item" },
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass: "nav-link",
-                                attrs: { to: "/options" }
-                              },
-                              [
-                                _c("i", {
-                                  staticClass: "fa fa-list-alt",
-                                  attrs: { "aria-hidden": "true" }
-                                }),
-                                _vm._v(" "),
-                                _c("span", [_vm._v("Options")])
-                              ]
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "li",
                           {
                             directives: [
                               {
@@ -76365,33 +76345,11 @@ var render = function() {
                                         "router-link",
                                         {
                                           staticClass: "dropdown-item",
-                                          attrs: { to: "/settings" }
-                                        },
-                                        [
-                                          _c("i", {
-                                            staticClass: "fa fa-cogs",
-                                            attrs: { "aria-hidden": "true" }
-                                          }),
-                                          _vm._v(" "),
-                                          _c("span", [_vm._v("Settings")])
-                                        ]
-                                      )
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "span",
-                                    [
-                                      _c(
-                                        "router-link",
-                                        {
-                                          staticClass: "dropdown-item",
                                           attrs: { to: "/user-register" }
                                         },
                                         [
                                           _c("i", {
-                                            staticClass: "fa fa-user",
+                                            staticClass: "fa fa-user-plus",
                                             attrs: { "aria-hidden": "true" }
                                           }),
                                           _vm._v(" "),
@@ -76400,33 +76358,6 @@ var render = function() {
                                       )
                                     ],
                                     1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "dropdown-item",
-                                      attrs: { href: "#" }
-                                    },
-                                    [_vm._v("Add User")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "dropdown-item",
-                                      attrs: { href: "#" }
-                                    },
-                                    [_vm._v("Change Password")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "dropdown-item",
-                                      attrs: { href: "#" }
-                                    },
-                                    [_vm._v("Something else here")]
                                   )
                                 ]
                               )
@@ -76542,8 +76473,10 @@ var staticRenderFns = [
         _c("p", [
           _vm._v("You are not "),
           _c("strong", [_vm._v(" Authorized ")]),
-          _vm._v(" to use this program.")
-        ])
+          _vm._v(" to use this program. ")
+        ]),
+        _vm._v(" "),
+        _c("p", [_vm._v("Please "), _c("strong", [_vm._v("Login.")])])
       ]
     )
   }
@@ -78532,6 +78465,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     // mounted() {
@@ -78547,9 +78496,33 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("Home")])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("section", { staticClass: "content-header" }, [
+        _c("h2", [_vm._v("Home")]),
+        _vm._v(" "),
+        _c("hr")
+      ]),
+      _vm._v(" "),
+      _c("section", { staticClass: "content" }, [
+        _c("div", { staticClass: "row justify-content-center" }, [
+          _c("div", { staticClass: "col-md-8" }, [
+            _c("h3", [
+              _vm._v("\r\n      \t\t\tWelcome to "),
+              _c("strong", [_vm._v("JMG Cargo Service.")])
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -79060,7 +79033,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [_c("strong", [_vm._v("Total Weight:")])])
+    return _c("td", [_c("strong", [_vm._v("Total Weight (KGs):")])])
   }
 ]
 render._withStripped = true
@@ -79169,7 +79142,6 @@ exports.push([module.i, "\n.alert-area[data-v-8a663ba0] {\n  margin: 1.5rem 1rem
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //
