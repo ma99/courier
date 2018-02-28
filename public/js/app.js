@@ -76255,7 +76255,7 @@ var render = function() {
                               },
                               [
                                 _c("i", {
-                                  staticClass: "fa fa-table",
+                                  staticClass: "fa fa-list-alt",
                                   attrs: { "aria-hidden": "true" }
                                 }),
                                 _vm._v(" "),

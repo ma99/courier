@@ -22,7 +22,7 @@
                           </li>
                           <li class="nav-item">                            
                             <router-link to="/booking" class="nav-link">
-                              <i class="fa fa-table" aria-hidden="true"></i>
+                              <i class="fa fa-list-alt" aria-hidden="true"></i>
                               <span>Booking</span>
                             </router-link>
                           </li>
