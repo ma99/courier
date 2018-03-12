@@ -210,10 +210,10 @@
 
             printDiv(id) {
                 var data=document.getElementById(id).innerHTML;
-                var myWindow = window.open('', 'my div', 'height=400,width=600');
-                myWindow.document.write('<html><head><title>my div</title>');
+                var myWindow = window.open('', 'print-document', 'height=400,width=600');
+                myWindow.document.write('<html><head><title>print document</title>');
                 /*optional stylesheet*/ 
-                myWindow.document.write('<link rel="stylesheet" href="css/main.css" type="text/css" />');
+                //myWindow.document.write('<link rel="stylesheet" href="css/main.css" type="text/css" />');
                 // Make sure the relative URL to the stylesheet works:
               // var tst = '<base href="' + location.origin + location.pathname + '">';
               // console.log('path=', tst);
