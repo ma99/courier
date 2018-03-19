@@ -26,12 +26,12 @@
                 </div>
 
                 <div class="form-group row">
-                  <label for="startDate" class="col-sm-3 col-form-label">Select Date</label>
+                  <label for="startDate" class="col-sm-3 col-form-label">Shipment Date</label>
                   <div class="col-sm-4">
                   	<div id="sandbox-container">
     	              	<!-- <div class="input-group mb-3"> -->
     	              	<div class="input-group date">	
-    	                	<input type="text" class="form-control" id="startDate" placeholder="Select Date" v-model="startDate">
+    	                	<input type="text" class="form-control" id="startDate" placeholder="Shipment Date" v-model="startDate">
     	                	<div class="input-group-append input-group-addon">
             						    <span class="input-group-text">
             						    	<!-- <i class="fa fa-calendar-check-o" aria-hidden="true"></i> -->
@@ -163,6 +163,7 @@
         methods: {
 
             addNew() {
+                this.fetchBookingRef();
                 this.selectedBookingRef= '' ; 
                 this.startDate = '' ;
                 this.totalWeight = '' ;

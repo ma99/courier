@@ -34,12 +34,34 @@
                             </router-link>
                           </li>
                           
-                          <li class="nav-item">
-                            <!-- <a class="nav-link" href="#">Report</a> -->
+                          <!-- <li class="nav-item">                            
                             <router-link to="/report" class="nav-link">
                               <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                               <span>Report</span>
                             </router-link>
+                          </li>
+ -->
+                          <li class="nav-item">                            
+                            <div class="dropdown">
+                               <a class="dropdown-toggle nav-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                  Reports
+                                </a>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <span>                                  
+                                  <router-link to="/report" class="dropdown-item">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    <span>Report</span>
+                                  </router-link>
+                                </span>
+                                <span>
+                                  <router-link to="/report-by-ref" class="dropdown-item">
+                                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                    <span>Report by Reference</span>
+                                  </router-link>
+                                </span>                               
+                              </div>
+                            </div>
                           </li>
                           
                           <!-- <li class="nav-item">                            

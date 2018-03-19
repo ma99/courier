@@ -55,36 +55,6 @@
         </div>
         <div class="report-area">          
           <div class="col">
-            <div class="heading">
-              <h2> 
-                {{ date.showStartDate }} to {{ date.showEndDate }}
-              </h2>  
-            </div>
-            <table class="table table-hover">
-              <thead class="thead-light">
-                <tr>
-                  <!-- <th scope="col">#</th> -->
-                  <th scope="col">Date</th>
-                  <th scope="col">Customer Name</th>
-                  <th scope="col">Item</th>
-                  <th scope="col">Weight (kg)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <!-- <th scope="row">1</th> -->
-                  <td></td>
-                  <td></td>
-                  <td></td>                  
-                </tr>
-                <!-- <tr>                  
-                  <td><strong>Total Weight (KGs):</strong></td>
-                  <td></td>
-                  <td>{{searchInfo.total_weight}}</td>                  
-                </tr>       -->        
-              </tbody>
-           </table>
-
            <table class="table table-hover">
               <thead class="thead-light">
                 <tr>

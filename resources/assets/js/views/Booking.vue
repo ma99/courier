@@ -78,6 +78,53 @@
                 </div>
               </div>
             </div>
+
+            <div class="booking-info">    
+              <span class="items">Item List</span>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="cosmetics" value="Cosmetics" v-model="items">
+                <label class="form-check-label" for="cosmetics">Cosmetics</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="dryBabyFood" value="Dry/ Baby food" v-model="items">
+                <label class="form-check-label" for="dryBabyFood">Dry/ Baby food</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="electronicsItem" value="Electronics Item" v-model="items">
+                <label class="form-check-label" for="electronicsItem">Electronics Item</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="mixCloth" value="Mix Cloth" v-model="items">
+                <label class="form-check-label" for="mixCloth">Mix Cloth</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="kidsItem" value="Kids Item" v-model="items">
+                <label class="form-check-label" for="kidsItem">Kids Item</label>
+              </div>
+            
+              <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="kitchenGadget" value="Kitchen Gadget" v-model="items">
+                  <label class="form-check-label" for="kitchenGadget">Kitchen Gadget</label>
+              </div>
+              <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="chocklate" value="Chocklate" v-model="items">
+                  <label class="form-check-label" for="chocklate">Chocklate</label>
+              </div>
+              <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="toys" value="Toys" v-model="items">
+                  <label class="form-check-label" for="toys">Toys</label>
+              </div>
+              <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="mobileLaptopTab" value="Mobile/ Laptop/ iPad/ Tab" v-model="items">
+                  <label class="form-check-label" for="mobileLaptopTab">Mobile/ Laptop/ iPad/ Tab</label>
+              </div>
+              <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="others" value="Others" v-model="items">
+                  <label class="form-check-label" for="others">Others</label>
+              </div>
+              <br>
+              <!-- <div>Checked Items: {{ items }}</div> -->
+            </div>
             
            <!--  <fieldset class="form-group">
               <div class="row">
@@ -171,6 +218,7 @@
             divisionList: [],
             error: '',
             homeDelivery: false,
+            items: [],
             loading: false,
             //receivingAddress: '',
             showAlert: false,
@@ -347,6 +395,15 @@
         @extend span;
         background-color: lightgreen;
       }
+      .items {
+        @extend span;
+        background-color: lightcoral;
+      }
+
+      .form-check-inline .form-check-input, .form-check-label {
+        margin-bottom: 1rem;
+      }
+
   } 
 
 </style>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Booking;
 use App\Shipment;
 use App\Receiver;
+use App\Customer;
 
 
 class ShipmentController extends Controller
@@ -60,17 +61,41 @@ class ShipmentController extends Controller
 
    public function search()
    {
-       $startDate = date("Y-m-d", strtotime($this->request->input('start_date')));
-       $endDate = date("Y-m-d", strtotime($this->request->input('end_date')));
-       $booking = Shipment::whereBetween('date', [$startDate, $endDate])->get();
+       $startDate = date("Y-m-d H:i:s", strtotime($this->request->input('start_date')));
+       $endDate = date("Y-m-d 23:59:59", strtotime($this->request->input('end_date')));
        
-       $totalCustomer = $booking->count('booking_id');
-       $totalWeight = $booking->sum('weight');
+       $bookings = Booking::whereBetween('created_at', [$startDate, $endDate])->with('shipment:booking_id,weight')->get();      
+       //return $bookings;
+       //$date = $bookings[0]->created_at->toDateString();
+       //$date = $bookings[0]->created_at->format('d-m-Y');
+       //return $date;
+       $totalCustomer = $bookings->count('customer_id');
+       
+       $totalWeight = 0;
+       $bookingInfo = [];
+       foreach ($bookings as $booking) {        
+         $totalWeight = $totalWeight + $booking->shipment->weight;
+         $customer = $this->findCustomerById($booking->customer_id);
+         $bookingInfo[] = ([
+            'date' => $booking->created_at->format('d-m-Y'),
+            'customer_name' => $customer->name,
+            'customer_phone' => $customer->phone,
+            //'items' =>
+            'weight' => $booking->shipment->weight,
+         ]);
+       }
        
        return response()->json([
             'total_customer' => $totalCustomer,            
-            'total_weight' => round($totalWeight),            
+            'total_weight' => round($totalWeight),
+            'bookings' => $bookingInfo           
         ]);
+
+   }
+
+   public function findCustomerById($id)
+   {
+     return Customer::find($id);
 
    }
 

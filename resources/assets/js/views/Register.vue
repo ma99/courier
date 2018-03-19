@@ -32,8 +32,8 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">Full Name</label>
 
                             <div class="col-md-6">
-                                <input v-model="user.name" v-validate="'required|alpha'" id="name" type="text" class="form-control" name="name" required autofocus>
-                            <p class="text-danger" v-if="errors.has('email')">{{ errors.first('name') }}</p>
+                                <input v-model="user.name" v-validate="'required'" id="name" type="text" class="form-control" name="name" required autofocus>
+                            <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
                             </div>
 
                         </div>
@@ -43,7 +43,7 @@
 
                             <div class="col-md-6">
                                 <input v-model="user.username" v-validate="'required'" id="username" type="text" class="form-control" name="username" placeholder="Will be used as login to app" required autofocus>
-                            <p class="text-danger" v-if="errors.has('email')">{{ errors.first('username') }}</p>
+                            <p class="text-danger" v-if="errors.has('username')">{{ errors.first('username') }}</p>
                             </div>
                         </div>
 
@@ -61,7 +61,7 @@
 
                             <div class="col-md-6">
                                 <input v-model="user.password" v-validate="'required|min:6'" id="password" type="password" class="form-control" name="password" required>
-                            <p class="text-danger" v-if="errors.has('password')">{{ errors.first('email') }}</p>
+                            <p class="text-danger" v-if="errors.has('password')">{{ errors.first('password') }}</p>
                             </div>
                         </div>
 
