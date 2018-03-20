@@ -31,7 +31,6 @@ import Booking from './views/Booking'
 import Shipment from './views/Shipment'
 import Home from './views/Home'
 import Report  from './views/Report'
-import ReportByRef  from './views/ReportByRef'
 import Register  from './views/Register'
 
 
@@ -55,11 +54,7 @@ const router = new VueRouter({
         {
             path: '/report',            
             component: Report
-        },
-        {
-            path: '/report-by-ref',            
-            component: ReportByRef
-        },
+        },        
         {
             path: '/user-register', 
             'name': 'register',           

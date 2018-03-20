@@ -11,9 +11,15 @@
       <div class="alert-area">
         <show-alert :show.sync="showAlert" :type="alertType"> 
               <!-- altert type can be info/warning/danger -->
+            <div v-show="response">              
               <strong>Booking </strong> has been 
               <strong> Saved </strong> successfully!
-            </show-alert>
+            </div>
+            <div v-show="error">              
+              <strong>Oops!! </strong> Something is  
+              <strong> Wrong. </strong> Pls check again!
+            </div>    
+        </show-alert>
       </div>
     </section>
 
@@ -86,8 +92,8 @@
                 <label class="form-check-label" for="cosmetics">Cosmetics</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="dryBabyFood" value="Dry/ Baby food" v-model="items">
-                <label class="form-check-label" for="dryBabyFood">Dry/ Baby food</label>
+                <input class="form-check-input" type="checkbox" id="dryBabyFood" value="Dry/Baby food" v-model="items">
+                <label class="form-check-label" for="dryBabyFood">Dry/Baby food</label>
               </div>
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" id="electronicsItem" value="Electronics Item" v-model="items">
@@ -126,34 +132,73 @@
               <!-- <div>Checked Items: {{ items }}</div> -->
             </div>
             
-           <!--  <fieldset class="form-group">
-              <div class="row">
-                <legend class="col-form-label col-sm-3 pt-0">Home Delivery</legend>
-                <div class="col-sm-6">
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="Yes" v-model="homeDelivery">
-                    <label class="form-check-label" for="gridRadios1">
-                      Yes
-                    </label>
+            <div class="parcel-quantity">
+              <fieldset class="form-group">
+                <div class="row">
+                  <legend class="col-form-label col-sm-4 pt-0">Quantity of Parcel</legend>
+                  <div class="col-sm-5">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="quantityRadios" id="quantityRadios1" value="One" v-model="parcelQuantity">
+                      <label class="form-check-label" for="quantityRadios1">
+                        One
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="quantityRadios" id="quantityRadios2" value="Two" v-model="parcelQuantity">
+                      <label class="form-check-label" for="quantityRadios2">
+                        Two
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="quantityRadios" id="quantityRadios3" value="Three" v-model="parcelQuantity">
+                      <label class="form-check-label" for="quantityRadios3">
+                        Three
+                      </label>
+                    </div>
                   </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="No" v-model="homeDelivery">
-                    <label class="form-check-label" for="gridRadios2">
-                      No
-                    </label>
+                </div>
+              </fieldset>
+            </div>
+
+            <div class="parcel-type">
+              <fieldset class="form-group">
+                <div class="row">
+                  <legend class="col-form-label col-sm-4 pt-0">Type of Parcel</legend>
+                  <div class="col-sm-5">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="Carton" id="parcelCheck1" v-model="parcelType">
+                      <label class="form-check-label" for="parcelCheck1">
+                        Carton
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="Packet" v-model="parcelType">
+                      <label class="form-check-label" for="parcelCheck2">
+                        Packet 
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="Luggage" id="parcelCheck3" v-model="parcelType">
+                      <label class="form-check-label" for="parcelCheck3">
+                       Luggage
+                      </label>
+                    </div>
                   </div>
-                  
                 </div>
-              </div>
-            </fieldset>    --> 
-            <div class="form-group row">
-              <div class="col-sm-3">Home Delivery</div>
-              <div class="col-sm-4">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="gridCheck1" v-model="homeDelivery">                  
+              </fieldset>               
+            </div>
+           
+            <div class="home-delivery">
+              <div class="form-group row">
+                <!-- <div class="col-sm-4">Home Delivery</div> -->
+                <legend class="col-form-label col-sm-4 pt-0">Home Delivery</legend>              
+                <div class="col-sm-4">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck1" v-model="homeDelivery">                  
+                  </div>
                 </div>
-              </div>
-            </div>        
+              </div>        
+            </div>
 
             <!-- <div class="receiving-address" v-show="(homeDelivery == 'Yes') ? false : true"> -->
             <div class="receiving-address" v-show="!homeDelivery">
@@ -194,10 +239,15 @@
               </div>              
             </div>
             <loader :show="loading"></loader>
-            <div class="form-group row">
+            <div class="form-group row justify-content-center">
               <div class="col-sm-4">
-                <button type="submit" class="btn btn-primary btn-lg" v-on:click.prevent="saveBookingInfo()" :disabled="!isValid">Save</button>
+                <div class="btn-group mr-2" role="group" aria-label="Third group">
+                  <button type="submit" class="btn btn-primary btn-lg" v-on:click.prevent="saveBookingInfo()" :disabled="!isValid">Save</button>
               </div>
+              <div class="btn-group mr-2" role="group" aria-label="Third group">
+                <button type="button" class="btn btn-warning btn-lg" v-on:click.prevent="reset">Cancel</button>
+              </div>  
+              </div>              
             </div>
          </form> 
         </div>
@@ -216,11 +266,14 @@
             bookingRef: '',
             cityList: [],
             divisionList: [],
-            error: '',
+            error: false,
             homeDelivery: false,
             items: [],
             loading: false,
             //receivingAddress: '',
+            parcelQuantity: 'One',
+            parcelType: [],
+            response: false,
             showAlert: false,
             selectedCity: '',
             selectedDivision: '',
@@ -256,7 +309,9 @@
                     this.receiver.phone != '' &&
                     this.selectedDivision != '' &&
                     this.selectedCity != '' &&
-                    this.areaName != ''
+                    this.areaName != '' &&                    
+                    this.items.length > 0 &&
+                    this.parcelType.length > 0 
             }
 
             return this.sender.name != '' && 
@@ -264,8 +319,9 @@
                     this.sender.phone != '' &&
                     this.receiver.name != '' && 
                     this.receiver.address != '' &&
-                    this.receiver.phone != '' 
-
+                    this.receiver.phone != '' &&
+                    this.items.length > 0 &&
+                    this.parcelType.length > 0 
           }
         },
         methods: {
@@ -306,25 +362,26 @@
           saveBookingInfo() {
             var vm = this;
             this.loading = true;
+            this.error = false;
+            this.response = false;
             var receivingAddress = 'N/A';
-            /*if (this.homeDelivery == 'No') {
-                var receivingAddress = this.areaName + ', ' + 
-                                        this.selectedCity.name + ', ' + 
-                                        this.selectedDivision.name;
-
-            }*/
+            var items = this.items.toString();
+            var parcelType = this.parcelType.toString();
+            
             if (this.homeDelivery == false) {
                 var receivingAddress = this.areaName + ', ' + 
                                         this.selectedCity.name + ', ' + 
                                         this.selectedDivision.name;
 
             }
-            
             axios.post('/booking', {
                 booking_ref: this.bookingRef,
+                items: items,
+                parcel_quantity: this.parcelQuantity,
+                parcel_type: parcelType,
+                home_delivery: this.homeDelivery,
                 sender: this.sender,
                 receiver: this.receiver,
-                home_delivery: this.homeDelivery,
                 receiving_address: receivingAddress,
             })          
             .then(function (response) {
@@ -340,13 +397,23 @@
                 //    vm.reset();
                 //    return;                   
                 // }
+                //console.log(vm.response);
                 vm.loading = false;
                 vm.alertType = 'info';                          
                 vm.showAlert= true;
+                vm.response = true;
                 vm.reset();
                 vm.setBookingRef();
                 //vm.disableSaveButton = true;
-            });
+            })
+            .catch(function (error) {
+                        vm.error = error.response.data.errors;
+                        console.log(error.response.data.errors);
+                        vm.loading = false;
+                        vm.alertType = 'danger';
+                        vm.showAlert= true;
+                        vm.error = true;
+            });          
           },
           reset() {
                 this.sender.name = '' ; 
@@ -358,7 +425,10 @@
                 this.selectedDivision = '' ;
                 this.selectedCity = '' ;
                 this.areaName = '';
-                this.homeDelivery = false;
+                this.items = [];
+                this.parcelType = [];
+                this.parcelQuantity = 'One';
+                this.homeDelivery = false;                
 ;        },
           setBookingRef() {
             this.bookingRef = this.fetchDate();
@@ -399,11 +469,24 @@
         @extend span;
         background-color: lightcoral;
       }
-
       .form-check-inline .form-check-input, .form-check-label {
         margin-bottom: 1rem;
       }
 
+
   } 
+  .parcel-quantity, .parcel-type, .home-delivery {
+    // background-color:lightblue;
+    border-bottom: 1px dashed lightgray;
+    margin-bottom: 1.5rem;
+  }
+  .receiving-address {
+   margin-bottom: 2.5rem; 
+  }
+  .alert-area {    
+    padding-left: 5rem;
+    text-align: center;
+    padding-right: 5rem;
+  }
 
 </style>

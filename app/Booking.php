@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {
     protected $fillable = [
-        'booking_ref', 'customer_id', 'home_delivery', 'receiving_address', 'shipment_info', 'items'
+        'booking_ref', 'customer_id', 'home_delivery', 
+        'receiving_address', 'shipment_info', 'items', 
+        'parcel_type', 'parcel_quantity'
     ];
 
     protected $casts = [
@@ -17,6 +19,16 @@ class Booking extends Model
     public function setHomeDeliveryAttribute($value)
     {
         $this->attributes['home_delivery'] = ($value == true) ? 'Yes' : 'No'; 
+    }
+
+     public function setItemsAttribute($value)
+    {
+        $this->attributes['items'] = serialize($value);
+    }
+
+    public function getItemsAttribute($value)
+    {   
+        return unserialize($value);
     }  
 
     public function customer()

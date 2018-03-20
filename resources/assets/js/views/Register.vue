@@ -130,7 +130,7 @@
             .catch(function (error) {
                          vm.error = error.response.data.errors;
                         console.log(error.response.data.errors);
-                    });
+            });
           },
       }   
     }

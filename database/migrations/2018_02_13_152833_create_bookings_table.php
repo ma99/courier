@@ -24,6 +24,9 @@ class CreateBookingsTable extends Migration
             //$table->string('shipment_info')->default('N/A');            
             //$table->string('receiving_from')->nullable($value = true);
             $table->string('receiving_address')->default('N/A');
+            $table->text('items');
+            $table->string('parcel_quantity', 10);            
+            $table->string('parcel_type');
             $table->timestamps();
         });
     }

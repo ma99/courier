@@ -9,8 +9,8 @@
     <section class="content">       
      <!-- Your Page Content Here -->   
     <!--  <p> Shipment Page </p>  -->
-      <div class="row justify-content-center">
-        <div class="col-10">          
+      <div class="row justify-content-md-center">
+        <div class="col-sm-10">          
          <form>            
           <div id="sandbox-container">
             <div class="form-row">
@@ -44,78 +44,64 @@
                 </div>
             </div>
           </div> 
-            <div class="alert-area">
-                <show-alert :show.sync="showAlert" :type="alertType"> 
-                      <!-- altert type can be info/warning/danger -->
-                      <strong>End Date </strong> must be greater (>) than
-                      <strong> Start Date </strong> 
-                    </show-alert>
-            </div>         
+          <div class="alert-area">
+              <show-alert :show.sync="showAlert" :type="alertType"> 
+                    <!-- altert type can be info/warning/danger -->
+                    <strong>End Date </strong> must be greater (>) than
+                    <strong> Start Date </strong> 
+                  </show-alert>
+          </div>         
          </form>
         </div>
-        <div class="report-area">          
+      </div>
+        <div class="report-area" v-show="showReportArea">          
           <div class="col">
             <div class="heading">
-              <h2> 
-                {{ date.showStartDate }} to {{ date.showEndDate }}
-              </h2>  
+              <em> 
+                {{ date.showStartDate }} <span> &nbsp; </span> to <span> &nbsp; </span> {{ date.showEndDate }}
+              </em>  
             </div>
             <table class="table table-hover">
               <thead class="thead-light">
                 <tr>
-                  <!-- <th scope="col">#</th> -->
+                  <th scope="col">#</th>
                   <th scope="col">Date</th>
                   <th scope="col">Customer Name</th>
+                  <th scope="col">Phone</th>
                   <th scope="col">Item</th>
                   <th scope="col">Weight (kg)</th>
                 </tr>
               </thead>
               <tbody>
+                <tr v-for="(booking, index) in searchInfo.bookings">
+                  <th scope="row"> {{ index+1 }} </th>
+                  <td> {{booking.date}} </td>
+                  <td> {{booking.customer_name}} </td>
+                  <td> {{booking.customer_phone}} </td>
+                  <td> {{booking.items}} </td>
+                  <td> {{booking.weight}} </td>                  
+                </tr> 
                 <tr>
-                  <!-- <th scope="row">1</th> -->
                   <td></td>
+                  <!-- <td></td>                  -->
+                  <td>
+                    <div class="text-center">
+                      <strong>Total Customers:</strong>                      
+                    </div>
+                  </td>
+                  <td><strong> {{searchInfo.total_customer}} </strong></td>
                   <td></td>
-                  <td></td>                  
-                </tr>
-                <!-- <tr>                  
-                  <td><strong>Total Weight (KGs):</strong></td>
-                  <td></td>
-                  <td>{{searchInfo.total_weight}}</td>                  
-                </tr>       -->        
+                  <td>
+                    <div class="text-center">
+                      <strong>Total Weight:</strong>
+                    </div>
+                  </td>
+                  <td><strong> {{searchInfo.total_weight}} </strong></td>                  
+                </tr>                
               </tbody>
            </table>
-
-           <table class="table table-hover">
-              <thead class="thead-light">
-                <tr>
-                  <!-- <th scope="col">#</th> -->
-                  <th scope="col"> {{ date.showStartDate }}</th>
-                  <th scope="col">to</th>
-                  <th scope="col"> {{ date.showEndDate }}</th>
-                  <!-- <th scope="col">From</th>
-                  <th scope="col">To</th> -->
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <!-- <th scope="row">1</th> -->
-                  <td><strong>Total Customers:</strong></td>
-                  <td></td>
-                  <td>{{searchInfo.total_customer}}</td>
-                  <!-- <td>@mdo</td> -->
-                </tr>
-                <tr>
-                  <!-- <th scope="row">2</th> -->
-                  <td><strong>Total Weight (KGs):</strong></td>
-                  <td></td>
-                  <td>{{searchInfo.total_weight}}</td>
-                  <!-- <td>@fat</td> -->
-                </tr>              
-              </tbody>
-           </table>
+          </div>
         </div>
-       </div>
-      </div>
     </section>
   </div>
 </template>
@@ -138,6 +124,7 @@
             },
             searchButton: '',
             searchInfo: '',
+            showReportArea: false,
           }
         },
         mounted() {                   
@@ -164,9 +151,9 @@
          computed: {
             isValid() {                
                 return this.startDate != '' && 
-                        this.endDate != '' &&
-                        //this.endDate >= this.startDate
-                        moment(this.date.end).isAfter(this.date.start)
+                        this.endDate != '' &&                       
+                        //moment(this.date.end).isAfter(this.date.start)
+                        moment(this.date.end).isSameOrAfter(this.date.start)
             },
         },       
         methods: {           
@@ -183,8 +170,9 @@
             })            
             .then(function (response) {                  
                  response.data.error ? vm.error = response.data.error : vm.searchInfo = response.data;
-                 console.log(vm.searchInfo);
-                 //vm.loading = false;                  
+                 //console.log(vm.searchInfo);
+                 //vm.loading = false;
+                 vm.showReportArea = true;                  
             });
           },
 	        showStartDate() {
@@ -212,9 +200,10 @@
 </script>
 
 <style lang="scss" scoped>
-  .report-area {
-    width: 60%;
-    margin-left: -16.25rem;
-    margin-top: 5rem;
+  .report-area {    
+    margin-top: 1.5rem;
+  }
+  td.text-center {
+    text-align: center;
   }
 </style>

@@ -20,7 +20,11 @@ class BookingController extends Controller
 
    public function store()
    {
-   	$bookingRef = $this->request->input('booking_ref'); 
+    $bookingRef = $this->request->input('booking_ref'); 
+    $items = $this->request->input('items'); 
+    $parcelQuantity = $this->request->input('parcel_quantity'); 
+   	$parcelType = $this->request->input('parcel_type'); 
+
    	$senderName = $this->request->input('sender.name'); 
    	$senderPhone = $this->request->input('sender.phone');
    	$senderAddress = $this->request->input('sender.address');
@@ -39,13 +43,16 @@ class BookingController extends Controller
 
 	$booking = Booking::create([
 		'booking_ref' => $bookingRef,
+    'items' => $items,
+    'parcel_quantity' => $parcelQuantity,
+    'parcel_type' => $parcelType,
 		'customer_id' => $customer->id,
 		'home_delivery' => $homeDelivery,
 		'receiving_address' => $receivingAddress,
 	]);
 
 	$receiver = Receiver::create([
-	    'booking_id' => $booking->id,
+	  'booking_id' => $booking->id,
 		'name' => $receiverName,
 		'phone' => $receiverPhone,
 		'address' => $receiverAddress,

@@ -34,14 +34,14 @@
                             </router-link>
                           </li>
                           
-                          <!-- <li class="nav-item">                            
+                          <li class="nav-item">                            
                             <router-link to="/report" class="nav-link">
                               <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                               <span>Report</span>
                             </router-link>
                           </li>
- -->
-                          <li class="nav-item">                            
+
+                          <!-- <li class="nav-item">                            
                             <div class="dropdown">
                                <a class="dropdown-toggle nav-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -62,7 +62,7 @@
                                 </span>                               
                               </div>
                             </div>
-                          </li>
+                          </li> -->
                           
                           <!-- <li class="nav-item">                            
                             <router-link to="/options" class="nav-link">
@@ -70,13 +70,7 @@
                               <span>Options</span>
                             </router-link>
                           </li> -->
-
-                          <!-- <li class="nav-item" v-show="isAdmin">
-                            <router-link to="/settings" class="nav-link">
-                              <i class="fa fa-cogs" aria-hidden="true"></i>
-                              <span>Settings</span>
-                            </router-link>
-                          </li> -->
+                          
                           <li class="nav-item" v-show="isAdmin">                            
                             <div class="dropdown">
                                <a class="dropdown-toggle nav-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -93,8 +93,7 @@
               </div>
             </div>
             
-            <div class="my-buttons">
-              
+            <div class="my-buttons">              
               <div class="form-group row">
                   <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                     <div class="btn-group mr-2" role="group" aria-label="First group">

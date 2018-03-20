@@ -78,6 +78,7 @@ class ShipmentController extends Controller
          $customer = $this->findCustomerById($booking->customer_id);
          $bookingInfo[] = ([
             'date' => $booking->created_at->format('d-m-Y'),
+            'items' => $booking->items,
             'customer_name' => $customer->name,
             'customer_phone' => $customer->phone,
             //'items' =>
