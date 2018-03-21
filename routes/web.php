@@ -30,3 +30,7 @@ Route::get('/{vue?}', function () {
 Route::post('/booking', 'BookingController@store');
 Route::post('/shipment', 'ShipmentController@store');
 Route::post('/search', 'ShipmentController@search');
+
+//item 
+Route::post('/items', 'ItemController@store');
+Route::post('/delete', 'ItemController@destroy');

@@ -122,7 +122,7 @@
                  response.data.error ? vm.error = response.data.error : vm.response = response.data;
                  //console.log(response.data);
                  if (vm.response == 'Success') {
-                    vm. reset();
+                    vm.reset();
                     vm.error= '';
                     vm.showAlert = true; 
                  }                          

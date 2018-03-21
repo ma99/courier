@@ -32,6 +32,7 @@ import Shipment from './views/Shipment'
 import Home from './views/Home'
 import Report  from './views/Report'
 import Register  from './views/Register'
+import Item  from './views/Item'
 
 
 const router = new VueRouter({
@@ -54,7 +55,11 @@ const router = new VueRouter({
         {
             path: '/report',            
             component: Report
-        },        
+        },
+        {
+            path: '/item',            
+            component: Item
+        },          
         {
             path: '/user-register', 
             'name': 'register',           

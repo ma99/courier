@@ -41,55 +41,25 @@
                             </router-link>
                           </li>
 
-                          <!-- <li class="nav-item">                            
-                            <div class="dropdown">
-                               <a class="dropdown-toggle nav-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                  Reports
-                                </a>
-                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <span>                                  
-                                  <router-link to="/report" class="dropdown-item">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                    <span>Report</span>
-                                  </router-link>
-                                </span>
-                                <span>
-                                  <router-link to="/report-by-ref" class="dropdown-item">
-                                    <i class="fa fa-user-plus" aria-hidden="true"></i>
-                                    <span>Report by Reference</span>
-                                  </router-link>
-                                </span>                               
-                              </div>
-                            </div>
-                          </li> -->
-                          
-                          <!-- <li class="nav-item">                            
-                            <router-link to="/options" class="nav-link">
-                              <i class="fa fa-list-alt" aria-hidden="true"></i>
-                              <span>Options</span>
-                            </router-link>
-                          </li> -->
-                          
                           <li class="nav-item" v-show="isAdmin">                            
                             <div class="dropdown">
                                <a class="dropdown-toggle nav-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-cogs" aria-hidden="true"></i>
                                   Settings
                                 </a>
-                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <!-- <span>                                  
-                                  <router-link to="/settings" class="dropdown-item">
-                                    <i class="fa fa-cogs" aria-hidden="true"></i>
-                                    <span>Settings</span>
-                                  </router-link>
-                                </span> -->
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">                                
                                 <span>
                                   <router-link to="/user-register" class="dropdown-item">
                                     <i class="fa fa-user-plus" aria-hidden="true"></i>
                                     <span>Add New User</span>
                                   </router-link>
-                              </span>
+                                </span>
+                                <span>
+                                  <router-link to="/item" class="dropdown-item">
+                                    <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                    <span>Add/Remove Item</span>
+                                  </router-link>
+                                </span>
                                 <!-- <a class="dropdown-item" href="#">
                                   <i class="fa fa-user-times" aria-hidden="true"></i>
                                   Delete User

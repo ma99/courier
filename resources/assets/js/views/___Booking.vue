@@ -85,7 +85,7 @@
               </div>
             </div>
 
-            <!-- <div class="booking-info">    
+            <div class="booking-info">    
               <span class="items">Item List</span>
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" id="cosmetics" value="Cosmetics" v-model="items">
@@ -128,15 +128,8 @@
                   <input class="form-check-input" type="checkbox" id="others" value="Others" v-model="items">
                   <label class="form-check-label" for="others">Others</label>
               </div>
-              <br>             
-            </div> -->
-
-            <div class="booking-info">    
-              <span class="items">Item List</span>
-              <div class="form-check form-check-inline" v-for="(item, index) in itemList">
-                <input class="form-check-input" type="checkbox" :id="item.name" :value="item.name" v-model="items">
-                <label class="form-check-label" :for="item.name">{{item.name}}</label>
-              </div>              
+              <br>
+              <!-- <div>Checked Items: {{ items }}</div> -->
             </div>
             
             <div class="parcel-quantity">
@@ -275,7 +268,6 @@
             divisionList: [],
             error: false,
             homeDelivery: false,
-            itemList: [],
             items: [],
             loading: false,
             //receivingAddress: '',
@@ -299,8 +291,7 @@
         },
         mounted() {          
           this.setBookingRef();
-          this.fetchDivisions();
-          this.fetchItems();
+          this.fetchDivisions();          
         },
         watch: {
             selectedDivision() {
@@ -367,34 +358,6 @@
                    response.data.error ? vm.error = response.data.error : vm.divisionList = response.data;
                    //vm.loading = false;                  
             });
-          },
-          fetchItems() {
-            //this.loading = true;
-            this.itemList= [];            
-            var vm = this;                      
-            //axios.get('api/bus?q=' + busId) //--> admin/api/bus?q=xyz  (wrong)
-            axios.get('/api/items')  //--> api/bus?q=xyz        (right)
-                .then(function (response) {                  
-                   response.data.error ? vm.error = response.data.error : vm.itemList = response.data;
-                   //vm.loading = false;
-                   vm.availableItemsSortByItemName(vm.itemList);                  
-            });
-          },
-          availableItemsSortByItemName(arr) {
-            // sort by name            
-                arr.sort(function(a, b) {
-                  var nameA = a.name.toUpperCase(); // ignore upper and lowercase
-                  var nameB = b.name.toUpperCase(); // ignore upper and lowercase
-                  if (nameA < nameB) {
-                    return -1;
-                  }
-                  if (nameA > nameB) {
-                    return 1;
-                  }
-
-                  // names must be equal
-                  return 0;
-                });
           },
           saveBookingInfo() {
             var vm = this;
