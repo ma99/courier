@@ -79831,6 +79831,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -79897,6 +79900,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 //console.log(vm.searchInfo);
                 //vm.loading = false;
                 vm.showReportArea = true;
+            }).catch(function (error) {
+                vm.error = error.response.data.errors;
+                console.log(error.response.data.errors);
             });
         },
         showStartDate: function showStartDate() {
@@ -80097,6 +80103,10 @@ var render = function() {
                         _vm._v(" " + _vm._s(index + 1) + " ")
                       ]),
                       _vm._v(" "),
+                      _c("td", [
+                        _vm._v(" " + _vm._s(booking.booking_ref) + " ")
+                      ]),
+                      _vm._v(" "),
                       _c("td", [_vm._v(" " + _vm._s(booking.date) + " ")]),
                       _vm._v(" "),
                       _c("td", [
@@ -80114,6 +80124,8 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("tr", [
+                    _c("td"),
+                    _vm._v(" "),
                     _c("td"),
                     _vm._v(" "),
                     _vm._m(4),
@@ -80191,7 +80203,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Date")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Booking Ref.")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Shipment Date")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Customer Name")]),
         _vm._v(" "),

@@ -65,7 +65,8 @@
               <thead class="thead-light">
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">Date</th>
+                  <th scope="col">Booking Ref.</th>
+                  <th scope="col">Shipment Date</th>
                   <th scope="col">Customer Name</th>
                   <th scope="col">Phone</th>
                   <th scope="col">Item</th>
@@ -75,6 +76,7 @@
               <tbody>
                 <tr v-for="(booking, index) in searchInfo.bookings">
                   <th scope="row"> {{ index+1 }} </th>
+                  <td> {{booking.booking_ref}} </td>
                   <td> {{booking.date}} </td>
                   <td> {{booking.customer_name}} </td>
                   <td> {{booking.customer_phone}} </td>
@@ -82,6 +84,7 @@
                   <td> {{booking.weight}} </td>                  
                 </tr> 
                 <tr>
+                  <td></td>
                   <td></td>
                   <!-- <td></td>                  -->
                   <td>
@@ -173,6 +176,10 @@
                  //console.log(vm.searchInfo);
                  //vm.loading = false;
                  vm.showReportArea = true;                  
+            })
+            .catch(function (error) {
+                         vm.error = error.response.data.errors;
+                        console.log(error.response.data.errors);
             });
           },
 	        showStartDate() {

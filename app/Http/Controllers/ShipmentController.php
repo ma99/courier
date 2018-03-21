@@ -61,36 +61,49 @@ class ShipmentController extends Controller
 
    public function search()
    {
+       $error = ['error' => 'No results found'];
        $startDate = date("Y-m-d H:i:s", strtotime($this->request->input('start_date')));
        $endDate = date("Y-m-d 23:59:59", strtotime($this->request->input('end_date')));
        
-       $bookings = Booking::whereBetween('created_at', [$startDate, $endDate])->with('shipment:booking_id,weight')->get();      
+       $bookings = Booking::whereBetween('created_at', [$startDate, $endDate])->with('shipment:booking_id,weight,date')->get();      
        //return $bookings;
        //$date = $bookings[0]->created_at->toDateString();
        //$date = $bookings[0]->created_at->format('d-m-Y');
        //return $date;
-       $totalCustomer = $bookings->count('customer_id');
-       
-       $totalWeight = 0;
-       $bookingInfo = [];
-       foreach ($bookings as $booking) {        
-         $totalWeight = $totalWeight + $booking->shipment->weight;
-         $customer = $this->findCustomerById($booking->customer_id);
-         $bookingInfo[] = ([
-            'date' => $booking->created_at->format('d-m-Y'),
-            'items' => $booking->items,
-            'customer_name' => $customer->name,
-            'customer_phone' => $customer->phone,
-            //'items' =>
-            'weight' => $booking->shipment->weight,
-         ]);
-       }
-       
-       return response()->json([
-            'total_customer' => $totalCustomer,            
-            'total_weight' => round($totalWeight),
-            'bookings' => $bookingInfo           
-        ]);
+      
+         
+         $totalCustomer = $bookings->count('customer_id');
+         $totalWeight = 0;
+         $bookingInfo = [];
+
+         foreach ($bookings as $booking) {        
+            $weight = 'N/A';
+            $date = 'N/A';
+            if ($booking->shipment_info) {              
+             $weight = $booking->shipment->weight;
+             $date = date("d-m-Y", strtotime($booking->shipment->date));//->format('d-m-Y');             
+             $totalWeight = $totalWeight + $weight;
+            } 
+             $customer = $this->findCustomerById($booking->customer_id);
+             $bookingInfo[] = ([
+                'booking_ref' => $booking->booking_ref,
+                //'date' => $booking->created_at->format('d-m-Y'),
+                'date' => $date,                
+                'items' => $booking->items,
+                'customer_name' => $customer->name,
+                'customer_phone' => $customer->phone,
+                //'items' =>
+                'weight' => $weight,
+             ]);
+         }
+         
+         return response()->json([
+              'total_customer' => $totalCustomer,            
+              'total_weight' => round($totalWeight),
+              'bookings' => $bookingInfo           
+          ]);
+      
+      //  return $error;
 
    }
 
