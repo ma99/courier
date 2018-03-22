@@ -1,15 +1,15 @@
 <template>
   <div>    
      <section class="content-header">
-      <h2>Add/Remove Item</h2> 
+      <h3>Add/Remove Item</h3> 
       <hr>        
     </section>
 
     <section class="content">      
       <div class="row justify-content-center">
         <div class="col-md-8">
-          <div class="card card-default">
-              <div class="card-header">
+          <div class="card border-success">
+              <div class="card-header text-white bg-light">
                 <!-- Add New City -->
                 <span class="btn-group" role="group">
                     <button class="btn btn-success" type="button" @click="expandAddItemPanel" v-show="!show">
@@ -44,13 +44,17 @@
 
       <div class="row justify-content-center item-list">
         <div class="col-md-10">
-          <div class="card">
-            <div class="card-header">Available Items Name</div>
+          <div class="card border-info">
+            <div class="card-header text-white bg-info">
+              Available Items 
+              <span class="item-total"> Total: {{ availableItemList.length }} </span>
+            </div>
             <div class="card-body">
                 <div id="scroll-items">
                   <table class="table table-striped table-hover">
+                      <!-- <thead class="thead-light"> -->
                       <thead>
-                        <tr>
+                        <tr class="table-primary">
                           <th scope="col">Sl. No.</th>
                           <th scope="col">Name
                                <!-- <span type="button" @click="isSortingAvailableBy('name')" :disabled="disableSorting">
@@ -301,6 +305,10 @@
             cursor: not-allowed;
             opacity: 0.65;
         }
-    } 
+    }
+    span.item-total {
+      float: right;
+    }
+
 
 </style>

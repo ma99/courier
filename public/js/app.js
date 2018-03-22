@@ -77325,9 +77325,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -77527,7 +77524,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("section", { staticClass: "content-header" }, [
-      _c("h2", [_vm._v("\r\n        Booking\r\n        ")]),
+      _c("h3", [_vm._v("Booking")]),
       _vm._v(" "),
       _c("hr"),
       _vm._v(" "),
@@ -78674,7 +78671,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\ndiv.ref-no[data-v-035c5cb2] {\n  font-size: 12px;\n  margin-left: 90px;\n}\ndiv.print-area[data-v-035c5cb2] {\n  margin-top: 20px;\n  margin-left: 100px;\n}\ndiv.print-area p[data-v-035c5cb2] {\n    font-size: 17x;\n}\ndiv.print-area p span[data-v-035c5cb2] {\n      border-bottom: 1px solid;\n      margin-right: 10px;\n}\n.my-buttons[data-v-035c5cb2] {\n  margin-left: 100px;\n  margin-top: 50px;\n}\n", ""]);
+exports.push([module.i, "\ndiv.ref-no[data-v-035c5cb2] {\n  font-size: 12px;\n  margin-left: 90px;\n}\ndiv.print-area[data-v-035c5cb2] {\n  margin-top: 20px;\n  margin-left: 100px;\n}\ndiv.print-area p[data-v-035c5cb2] {\n    font-size: 17x;\n}\ndiv.print-area p span[data-v-035c5cb2] {\n      border-bottom: 1px solid;\n      margin-right: 10px;\n}\n.my-buttons[data-v-035c5cb2] {\n  margin-top: 1.5rem;\n}\n", ""]);
 
 // exports
 
@@ -78685,6 +78682,8 @@ exports.push([module.i, "\ndiv.ref-no[data-v-035c5cb2] {\n  font-size: 12px;\n  
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -78924,6 +78923,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         //    popupWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</html>');
         //    popupWin.document.close(); 
         // },
+        reset: function reset() {
+            this.fetchBookingRef();
+            this.selectedBookingRef = '';
+            this.startDate = '';
+            this.totalWeight = '';
+            this.selectedCity = '';
+            this.selectedDivision = '';
+
+            this.showSaveButton = true;
+        },
         saveShipmentInfo: function saveShipmentInfo() {
             var vm = this;
 
@@ -78995,7 +79004,8 @@ var render = function() {
                     value: _vm.showSaveButton,
                     expression: "showSaveButton"
                   }
-                ]
+                ],
+                staticClass: "border px-5 py-5"
               },
               [
                 _c("div", { staticClass: "form-group row" }, [
@@ -79354,113 +79364,149 @@ var render = function() {
             ),
             _vm._v(" "),
             _c("div", { staticClass: "my-buttons" }, [
-              _c("div", { staticClass: "form-group row" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "btn-toolbar",
-                    attrs: {
-                      role: "toolbar",
-                      "aria-label": "Toolbar with button groups"
-                    }
-                  },
-                  [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "btn-group mr-2",
-                        attrs: { role: "group", "aria-label": "First group" }
-                      },
-                      [
-                        _c(
-                          "button",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: _vm.showSaveButton,
-                                expression: "showSaveButton"
+              _c(
+                "div",
+                { staticClass: "form-group row justify-content-center" },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "btn-toolbar",
+                      attrs: {
+                        role: "toolbar",
+                        "aria-label": "Toolbar with button groups"
+                      }
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "btn-group mr-2",
+                          attrs: { role: "group", "aria-label": "First group" }
+                        },
+                        [
+                          _c(
+                            "button",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: _vm.showSaveButton,
+                                  expression: "showSaveButton"
+                                }
+                              ],
+                              staticClass: "btn btn-primary btn-lg",
+                              attrs: { type: "button", disabled: !_vm.isValid },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  _vm.saveShipmentInfo()
+                                }
                               }
-                            ],
-                            staticClass: "btn btn-primary btn-lg",
-                            attrs: { type: "button", disabled: !_vm.isValid },
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                _vm.saveShipmentInfo()
+                            },
+                            [_vm._v("Save")]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "btn-group mr-2",
+                          attrs: { role: "group", "aria-label": "First group" }
+                        },
+                        [
+                          _c(
+                            "button",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: _vm.showSaveButton,
+                                  expression: "showSaveButton"
+                                }
+                              ],
+                              staticClass: "btn btn-warning btn-lg",
+                              attrs: { type: "button", disabled: !_vm.isValid },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  _vm.reset($event)
+                                }
                               }
-                            }
-                          },
-                          [_vm._v("Save")]
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "btn-group mr-2",
-                        attrs: { role: "group", "aria-label": "Second group" }
-                      },
-                      [
-                        _c(
-                          "button",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: _vm.showPrintButton,
-                                expression: "showPrintButton"
+                            },
+                            [_vm._v("Cancel")]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "btn-group mr-2",
+                          attrs: { role: "group", "aria-label": "Second group" }
+                        },
+                        [
+                          _c(
+                            "button",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: _vm.showPrintButton,
+                                  expression: "showPrintButton"
+                                }
+                              ],
+                              staticClass: "btn btn-info btn-lg",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  _vm.printDiv("divToPrint")
+                                }
                               }
-                            ],
-                            staticClass: "btn btn-info btn-lg",
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                _vm.printDiv("divToPrint")
+                            },
+                            [_vm._v("Print")]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "btn-group",
+                          attrs: { role: "group", "aria-label": "Third group" }
+                        },
+                        [
+                          _c(
+                            "button",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: _vm.showPrintButton,
+                                  expression: "showPrintButton"
+                                }
+                              ],
+                              staticClass: "btn btn-success btn-lg",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  _vm.addNew()
+                                }
                               }
-                            }
-                          },
-                          [_vm._v("Print")]
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "btn-group",
-                        attrs: { role: "group", "aria-label": "Third group" }
-                      },
-                      [
-                        _c(
-                          "button",
-                          {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: _vm.showPrintButton,
-                                expression: "showPrintButton"
-                              }
-                            ],
-                            staticClass: "btn btn-success btn-lg",
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                _vm.addNew()
-                              }
-                            }
-                          },
-                          [_vm._v("Add New")]
-                        )
-                      ]
-                    )
-                  ]
-                )
-              ])
+                            },
+                            [_vm._v("Add New")]
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ]
+              )
             ])
           ])
         ])
@@ -79474,7 +79520,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("section", { staticClass: "content-header" }, [
-      _c("h2", [_vm._v("Shipment")]),
+      _c("h3", [_vm._v("Shipment")]),
       _vm._v(" "),
       _c("hr")
     ])
@@ -79712,7 +79758,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.report-area[data-v-33af7181] {\n  margin-top: 1.5rem;\n}\ntd.text-center[data-v-33af7181] {\n  text-align: center;\n}\n", ""]);
+exports.push([module.i, "\n.report-area[data-v-33af7181] {\n  margin-top: 1.5rem;\n}\ntd.text-center[data-v-33af7181] {\n  text-align: center;\n}\n#scroll-items span[data-v-33af7181] {\n  cursor: pointer;\n  margin-left: 5px;\n}\n#scroll-items span[disabled][data-v-33af7181] {\n  cursor: not-allowed;\n  opacity: 0.65;\n}\n", ""]);
 
 // exports
 
@@ -79723,6 +79769,68 @@ exports.push([module.i, "\n.report-area[data-v-33af7181] {\n  margin-top: 1.5rem
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -79858,6 +79966,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         this.showStartDate();
         this.showEndDate();
+        this.enableSlimScroll();
     },
 
     watch: {
@@ -79885,6 +79994,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
+        enableSlimScroll: function enableSlimScroll() {
+            $('#scroll-items').slimScroll({
+                color: '#00f',
+                size: '8px',
+                height: '500px', //300px
+                //height: auto,
+                wheelStep: 10
+            });
+        },
         showAlertToUser: function showAlertToUser() {
             //return this.showAlert = ( moment(this.endDate, "DD-MM-YYYY").isAfter(this.startDate, "DD-MM-YYYY") ) ? true : false;
             return this.showAlert = moment(this.date.end).isBefore(this.date.start) ? true : false;
@@ -79948,7 +80066,7 @@ var render = function() {
         _c("div", { staticClass: "col-sm-10" }, [
           _c("form", [
             _c("div", { attrs: { id: "sandbox-container" } }, [
-              _c("div", { staticClass: "form-row" }, [
+              _c("div", { staticClass: "form-row justify-content-center" }, [
                 _c("div", { staticClass: "form-group col-sm-4" }, [
                   _c("div", { staticClass: "input-group date" }, [
                     _c("input", {
@@ -80061,100 +80179,120 @@ var render = function() {
               1
             )
           ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.showReportArea,
-              expression: "showReportArea"
-            }
-          ],
-          staticClass: "report-area"
-        },
-        [
-          _c("div", { staticClass: "col" }, [
-            _c("div", { staticClass: "heading" }, [
-              _c("em", [
-                _vm._v(
-                  " \n                " + _vm._s(_vm.date.showStartDate) + " "
-                ),
-                _c("span", [_vm._v("   ")]),
-                _vm._v(" to "),
-                _c("span", [_vm._v("   ")]),
-                _vm._v(" " + _vm._s(_vm.date.showEndDate) + "\n              ")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("table", { staticClass: "table table-hover" }, [
-              _vm._m(3),
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.showReportArea,
+                expression: "showReportArea"
+              }
+            ],
+            staticClass: "report-area"
+          },
+          [
+            _c("div", { staticClass: "card border-primary" }, [
+              _c("div", { staticClass: "card-header text-white bg-primary" }, [
+                _vm._v("\n            Date: "),
+                _c("span", [_vm._v("  ")]),
+                _vm._v(" "),
+                _c("em", [
+                  _vm._v(
+                    " \n              " + _vm._s(_vm.date.showStartDate) + " "
+                  ),
+                  _c("span", [_vm._v("   ")]),
+                  _vm._v(" to "),
+                  _c("span", [_vm._v("   ")]),
+                  _vm._v(" " + _vm._s(_vm.date.showEndDate) + "\n            ")
+                ])
+              ]),
               _vm._v(" "),
-              _c(
-                "tbody",
-                [
-                  _vm._l(_vm.searchInfo.bookings, function(booking, index) {
-                    return _c("tr", [
-                      _c("th", { attrs: { scope: "row" } }, [
-                        _vm._v(" " + _vm._s(index + 1) + " ")
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(" " + _vm._s(booking.booking_ref) + " ")
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(" " + _vm._s(booking.date) + " ")]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(" " + _vm._s(booking.customer_name) + " ")
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(" " + _vm._s(booking.customer_phone) + " ")
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(" " + _vm._s(booking.items) + " ")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(" " + _vm._s(booking.weight) + " ")])
-                    ])
-                  }),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td"),
+              _c("div", { staticClass: "card-body" }, [
+                _c("div", { attrs: { id: "scroll-items" } }, [
+                  _c("table", { staticClass: "table table-hover" }, [
+                    _vm._m(3),
                     _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("strong", [
-                        _vm._v(
-                          " " + _vm._s(_vm.searchInfo.total_customer) + " "
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _vm._m(5),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("strong", [
-                        _vm._v(" " + _vm._s(_vm.searchInfo.total_weight) + " ")
-                      ])
-                    ])
+                    _c(
+                      "tbody",
+                      [
+                        _vm._l(_vm.searchInfo.bookings, function(
+                          booking,
+                          index
+                        ) {
+                          return _c("tr", [
+                            _c("th", { attrs: { scope: "row" } }, [
+                              _vm._v(" " + _vm._s(index + 1) + " ")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(" " + _vm._s(booking.booking_ref) + " ")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(" " + _vm._s(booking.date) + " ")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(" " + _vm._s(booking.customer_name) + " ")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(" " + _vm._s(booking.customer_phone) + " ")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(" " + _vm._s(booking.items) + " ")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(" " + _vm._s(booking.weight) + " ")
+                            ])
+                          ])
+                        }),
+                        _vm._v(" "),
+                        _vm._m(4),
+                        _vm._v(" "),
+                        _c("tr", { staticClass: "table-secondary" }, [
+                          _c("td"),
+                          _vm._v(" "),
+                          _vm._m(5),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("strong", [
+                              _vm._v(
+                                " " +
+                                  _vm._s(_vm.searchInfo.total_customer) +
+                                  " "
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("td"),
+                          _vm._v(" "),
+                          _vm._m(6),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("strong", [
+                              _vm._v(
+                                " " + _vm._s(_vm.searchInfo.total_weight) + " "
+                              )
+                            ])
+                          ])
+                        ])
+                      ],
+                      2
+                    )
                   ])
-                ],
-                2
-              )
+                ])
+              ])
             ])
-          ])
-        ]
-      )
+          ]
+        )
+      ])
     ])
   ])
 }
@@ -80164,7 +80302,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("section", { staticClass: "content-header" }, [
-      _c("h2", [_vm._v("Report")]),
+      _c("h3", [_vm._v("Report")]),
       _vm._v(" "),
       _c("hr")
     ])
@@ -80201,19 +80339,33 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", { staticClass: "thead-light" }, [
       _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+        _c("th", { staticClass: "align-top", attrs: { scope: "col" } }, [
+          _vm._v("#")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Booking Ref.")]),
+        _c("th", { staticClass: "align-top", attrs: { scope: "col" } }, [
+          _vm._v("Booking Ref.")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Shipment Date")]),
+        _c("th", { staticClass: "align-top", attrs: { scope: "col" } }, [
+          _vm._v("Shipment Date")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Customer Name")]),
+        _c("th", { staticClass: "align-top", attrs: { scope: "col" } }, [
+          _vm._v("Customer Name")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Phone")]),
+        _c("th", { staticClass: "align-top", attrs: { scope: "col" } }, [
+          _vm._v("Phone")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Item")]),
+        _c("th", { staticClass: "align-top", attrs: { scope: "col" } }, [
+          _vm._v("Item")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Weight (kg)")])
+        _c("th", { staticClass: "align-top", attrs: { scope: "col" } }, [
+          _vm._v("Weight (kg)")
+        ])
       ])
     ])
   },
@@ -80221,7 +80373,27 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
+    return _c("tr", [
+      _c("td"),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { colspan: "2" } }, [
       _c("div", { staticClass: "text-center" }, [
         _c("strong", [_vm._v("Total Customers:")])
       ])
@@ -80798,28 +80970,32 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _c("div", { staticClass: "form-group row mb-0" }, [
-                  _c("div", { staticClass: "col-md-6 offset-md-4" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "submit", disabled: !_vm.isValid },
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            _vm.save()
+                _c(
+                  "div",
+                  { staticClass: "form-group row mb-0 justify-content-center" },
+                  [
+                    _c("div", { staticClass: "col-md-6 offset-md-4" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { type: "submit", disabled: !_vm.isValid },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              _vm.save()
+                            }
                           }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n                                    Register\n                                "
-                        )
-                      ]
-                    )
-                  ])
-                ])
+                        },
+                        [
+                          _vm._v(
+                            "\n                                    Register\n                                "
+                          )
+                        ]
+                      )
+                    ])
+                  ]
+                )
               ])
             ])
           ])
@@ -80834,7 +81010,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("section", { staticClass: "content-header" }, [
-      _c("h2", [_vm._v("Add New User")]),
+      _c("h3", [_vm._v("Add New User")]),
       _vm._v(" "),
       _c("hr")
     ])
@@ -80935,7 +81111,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.item-list[data-v-74eff920] {\n  margin-top: 2.5rem;\n}\n#scroll-items span[data-v-74eff920] {\n  cursor: pointer;\n  margin-left: 5px;\n}\n#scroll-items span[disabled][data-v-74eff920] {\n  cursor: not-allowed;\n  opacity: 0.65;\n}\n", ""]);
+exports.push([module.i, "\n.item-list[data-v-74eff920] {\n  margin-top: 2.5rem;\n}\n#scroll-items span[data-v-74eff920] {\n  cursor: pointer;\n  margin-left: 5px;\n}\n#scroll-items span[disabled][data-v-74eff920] {\n  cursor: not-allowed;\n  opacity: 0.65;\n}\nspan.item-total[data-v-74eff920] {\n  float: right;\n}\n", ""]);
 
 // exports
 
@@ -80946,6 +81122,10 @@ exports.push([module.i, "\n.item-list[data-v-74eff920] {\n  margin-top: 2.5rem;\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
 //
 //
 //
@@ -81247,8 +81427,8 @@ var render = function() {
       [
         _c("div", { staticClass: "row justify-content-center" }, [
           _c("div", { staticClass: "col-md-8" }, [
-            _c("div", { staticClass: "card card-default" }, [
-              _c("div", { staticClass: "card-header" }, [
+            _c("div", { staticClass: "card border-success" }, [
+              _c("div", { staticClass: "card-header text-white bg-light" }, [
                 _c(
                   "span",
                   { staticClass: "btn-group", attrs: { role: "group" } },
@@ -81376,9 +81556,14 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "row justify-content-center item-list" }, [
           _c("div", { staticClass: "col-md-10" }, [
-            _c("div", { staticClass: "card" }, [
-              _c("div", { staticClass: "card-header" }, [
-                _vm._v("Available Items Name")
+            _c("div", { staticClass: "card border-info" }, [
+              _c("div", { staticClass: "card-header text-white bg-info" }, [
+                _vm._v("\n            Available Items \n            "),
+                _c("span", { staticClass: "item-total" }, [
+                  _vm._v(
+                    " Total: " + _vm._s(_vm.availableItemList.length) + " "
+                  )
+                ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-body" }, [
@@ -81465,7 +81650,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("section", { staticClass: "content-header" }, [
-      _c("h2", [_vm._v("Add/Remove Item")]),
+      _c("h3", [_vm._v("Add/Remove Item")]),
       _vm._v(" "),
       _c("hr")
     ])
@@ -81475,7 +81660,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("thead", [
-      _c("tr", [
+      _c("tr", { staticClass: "table-primary" }, [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Sl. No.")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [

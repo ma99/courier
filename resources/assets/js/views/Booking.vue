@@ -3,10 +3,7 @@
   <div>
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h2>
-        Booking
-        <!-- <small>Optional description</small> -->
-      </h2>
+      <h3>Booking</h3>
       <hr>      
       <div class="alert-area">
         <show-alert :show.sync="showAlert" :type="alertType"> 

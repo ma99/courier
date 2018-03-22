@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<section class="content-header">
-      <h2>Add New User</h2> 
+      <h3>Add New User</h3> 
       <hr>     
     </section>
 
@@ -65,7 +65,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
+                        <div class="form-group row mb-0 justify-content-center">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary" :disabled="!isValid" v-on:click.prevent="save()">
                                     Register

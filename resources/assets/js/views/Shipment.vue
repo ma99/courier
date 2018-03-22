@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<section class="content-header">
-      <h2>Shipment</h2> 
+      <h3>Shipment</h3> 
       <hr>     
     </section>
 
@@ -12,7 +12,7 @@
       <div class="row justify-content-center">
         <div class="col-8">          
          <form>
-            <div v-show="showSaveButton">                
+            <div v-show="showSaveButton" class="border px-5 py-5">                
                 <div class="form-group row">
                   <label for="inputBookingRef" class="col-sm-3 col-form-label">Ref No</label>
                   <div class="col-sm-6">              	
@@ -94,11 +94,13 @@
             </div>
             
             <div class="my-buttons">              
-              <div class="form-group row">
+              <div class="form-group row justify-content-center">
                   <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                     <div class="btn-group mr-2" role="group" aria-label="First group">
                       <button v-show="showSaveButton" type="button" class="btn btn-primary btn-lg" v-on:click.prevent="saveShipmentInfo()" :disabled="!isValid">Save</button>
-                      
+                    </div>
+                    <div class="btn-group mr-2" role="group" aria-label="First group">
+                      <button v-show="showSaveButton" type="button" class="btn btn-warning btn-lg" v-on:click.prevent="reset" :disabled="!isValid">Cancel</button>
                     </div>
                     <div class="btn-group mr-2" role="group" aria-label="Second group">
                       <button v-show="showPrintButton" type="button" class="btn btn-info btn-lg" v-on:click="printDiv('divToPrint')">Print</button>
@@ -242,6 +244,16 @@
             //    popupWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</html>');
             //    popupWin.document.close(); 
             // },
+           reset() {
+            this.fetchBookingRef();
+            this.selectedBookingRef= '' ; 
+            this.startDate = '' ;
+            this.totalWeight = '' ;
+            this.selectedCity = '' ; 
+            this.selectedDivision = '';
+
+            this.showSaveButton = true;
+           },
            saveShipmentInfo() {
                 var vm = this;
                 
@@ -311,7 +323,7 @@
     }
   }
   .my-buttons {
-    margin-left: 100px;
-    margin-top: 50px;
+    //margin-left: 100px;
+    margin-top: 1.5rem;
   }
 </style>
