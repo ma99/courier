@@ -81220,6 +81220,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -81236,19 +81266,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       //disableSorting: true,
       error: '',
       loading: false,
+      // offset:{
+      //   type: Number,
+      //   default: 4
+      // },
+      offset: 4,
+      pagination: {
+        current_page: '',
+        last_page: '',
+        next_page_url: '',
+        prev_page_url: '',
+        path: '',
+        total: '',
+        to: '',
+        from: ''
+      },
       response: '',
       //selectedCityId: '',
       //selectedCity: '',
       //selectedDivisionId: '',
       //selectedDivision: '',
       show: false,
-      showAlert: false
+      showAlert: false,
+      slNo: 1
     };
   },
   mounted: function mounted() {
     //this.fetchDivisions();
     this.fetchAvailableItems();
-    this.enableSlimScroll();
+    //this.enableSlimScroll();
   },
 
   watch: {
@@ -81262,7 +81308,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.disableSaveButton = this.itemName == '' ? true : false;
     }
   },
+  computed: {
+    // slNumber(idx) {
+    //   return this.slNo + idx;
+    // },
+    pagesNumber: function pagesNumber() {
+      if (!this.pagination.to) {
+        return [];
+      }
+      var from = this.pagination.current_page - this.offset;
+      if (from < 1) {
+        from = 1;
+      }
+      var to = from + this.offset * 2;
+      if (to >= this.pagination.last_page) {
+        to = this.pagination.last_page;
+      }
+      var pagesArray = [];
+      for (var page = from; page <= to; page++) {
+        pagesArray.push(page);
+      }
+      return pagesArray;
+    }
+  },
   methods: {
+    slNumber: function slNumber(pageNumber) {
+      //case*5 - offset
+      this.slNo = pageNumber * 5 - this.offset;
+    },
+    changePage: function changePage(page) {
+      this.pagination.current_page = page;
+      //this.$emit('paginate');            
+      //let pageUrl = `/user/api?page=${this.pagination.current_page}`;
+      var pageUrl = this.pagination.path + '?page=' + this.pagination.current_page;
+      this.fetchAvailableItems(pageUrl);
+      this.slNumber(page);
+    },
     enableSlimScroll: function enableSlimScroll() {
       $('#scroll-items').slimScroll({
         color: '#00f',
@@ -81275,17 +81356,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     expandAddItemPanel: function expandAddItemPanel() {
       this.show = !this.show;
     },
-    fetchAvailableItems: function fetchAvailableItems() {
+    fetchAvailableItems: function fetchAvailableItems(page_url) {
       this.loading = true;
-      this.availableItemList = [];
+      //this.availableItemList= [];            
       var vm = this;
-      axios.get('/api/items') //--> api/bus?q=xyz        (right)
+      page_url = page_url || '/api/items';
+      axios.get(page_url) //--> api/bus?q=xyz        (right)
       .then(function (response) {
-        response.data.error ? vm.error = response.data.error : vm.availableItemList = response.data;
-        vm.loading = false;
+        response.data.error ? vm.error = response.data.error : vm.availableItemList = response.data.data;
+        vm.makePagination(response.data);
         //vm.availableItemsSortByItemName(vm.busAvailableToCityList); 
         vm.availableItemsSortByItemName(vm.availableItemList);
+        vm.loading = false;
       });
+    },
+    makePagination: function makePagination(data) {
+      // this.current_page= data.current_page;
+      // this.last_page= data.last_page;
+      // this.next_page_url= data.next_page_url;
+      // this.prev_page_url= data.prev_page_ur;
+      var pagination = {
+        current_page: data.current_page,
+        last_page: data.last_page,
+        next_page_url: data.next_page_url,
+        prev_page_url: data.prev_page_url,
+        path: data.path,
+        total: data.total,
+        to: data.to,
+        from: data.from
+        //this.$set('pagination', pagination);
+      };this.pagination = pagination;
     },
 
     /*isSortingAvailableBy(val) {
@@ -81329,6 +81429,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             if (vm.response) {
               vm.removeItemFromAvailableItemList(item.id); // update the array after removing
+              vm.updatePaginationTotal(vm.pagination.total);
               vm.loading = false;
               vm.actionStatus = 'Removed';
               vm.alertType = 'danger';
@@ -81347,6 +81448,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
       this.availableItemList.splice(indx, 1);
       //return;
+    },
+    updatePaginationTotal: function updatePaginationTotal(total) {
+      this.pagination.total = total - 1;
     },
     saveItems: function saveItems() {
       var vm = this;
@@ -81560,52 +81664,137 @@ var render = function() {
               _c("div", { staticClass: "card-header text-white bg-info" }, [
                 _vm._v("\n            Available Items \n            "),
                 _c("span", { staticClass: "item-total" }, [
-                  _vm._v(
-                    " Total: " + _vm._s(_vm.availableItemList.length) + " "
-                  )
+                  _vm._v(" Total: " + _vm._s(_vm.pagination.total) + " ")
                 ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-body" }, [
-                _c("div", { attrs: { id: "scroll-items" } }, [
-                  _c(
-                    "table",
-                    { staticClass: "table table-striped table-hover" },
-                    [
-                      _vm._m(1),
-                      _vm._v(" "),
-                      _c(
-                        "tbody",
-                        _vm._l(_vm.availableItemList, function(item, index) {
-                          return _c("tr", [
-                            _c("td", [_vm._v(_vm._s(index + 1))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(item.name))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-danger",
-                                  on: {
-                                    click: function($event) {
-                                      $event.preventDefault()
-                                      _vm.removeItem(item)
-                                    }
+                _c(
+                  "table",
+                  { staticClass: "table table-striped table-hover" },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.availableItemList, function(item, index) {
+                        return _c("tr", [
+                          _c("td", [_vm._v(_vm._s(_vm.slNo + index))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(item.name))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger",
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    _vm.removeItem(item)
                                   }
-                                },
-                                [
-                                  _c("i", { staticClass: "fa fa-trash fa-fw" }),
-                                  _vm._v("Remove\n                            ")
-                                ]
-                              )
-                            ])
+                                }
+                              },
+                              [
+                                _c("i", { staticClass: "fa fa-trash fa-fw" }),
+                                _vm._v("Remove\n                            ")
+                              ]
+                            )
                           ])
-                        })
+                        ])
+                      })
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "ul",
+                  { staticClass: "pagination justify-content-center" },
+                  [
+                    _vm.pagination.current_page > 1
+                      ? _c("li", { staticClass: "page-item" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "page-link",
+                              attrs: {
+                                href: "javascript:void(0)",
+                                "aria-label": "Previous"
+                              },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  _vm.changePage(
+                                    _vm.pagination.current_page - 1
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c("span", { attrs: { "aria-hidden": "true" } }, [
+                                _vm._v("«")
+                              ])
+                            ]
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm._l(_vm.pagesNumber, function(page) {
+                      return _c(
+                        "li",
+                        {
+                          staticClass: "page-item",
+                          class: { active: page == _vm.pagination.current_page }
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "page-link",
+                              attrs: { href: "javascript:void(0)" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  _vm.changePage(page)
+                                }
+                              }
+                            },
+                            [_vm._v(_vm._s(page))]
+                          )
+                        ]
                       )
-                    ]
-                  )
-                ])
+                    }),
+                    _vm._v(" "),
+                    _vm.pagination.current_page < _vm.pagination.last_page
+                      ? _c("li", { staticClass: "page-item" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "page-link",
+                              attrs: {
+                                href: "javascript:void(0)",
+                                "aria-label": "Next"
+                              },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  _vm.changePage(
+                                    _vm.pagination.current_page + 1
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c("span", { attrs: { "aria-hidden": "true" } }, [
+                                _vm._v("»")
+                              ])
+                            ]
+                          )
+                        ])
+                      : _vm._e()
+                  ],
+                  2
+                )
               ]),
               _vm._v(" "),
               _c(

@@ -47,10 +47,10 @@
           <div class="card border-info">
             <div class="card-header text-white bg-info">
               Available Items 
-              <span class="item-total"> Total: {{ pagination.total }} </span>
+              <span class="item-total"> Total: {{ availableItemList.length }} </span>
             </div>
             <div class="card-body">
-                <!-- <div id="scroll-items"> -->
+                <div id="scroll-items">
                   <table class="table table-striped table-hover">
                       <!-- <thead class="thead-light"> -->
                       <thead>
@@ -61,14 +61,13 @@
                                   <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
                               </span> -->
                           </th>                        
-                          <th scope="col">Action</th>                             
+                          <th scope="col">Action</th>                                                         
                           <!-- <th>&nbsp;</th> -->
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(item, index) in availableItemList">                              
-                          <!-- <td>{{ index+1 }}</td>  -->                                           
-                          <td>{{ slNo + index }}</td>                              
+                        <tr  v-for="(item, index) in availableItemList">                              
+                          <td>{{ index+1 }}</td>                              
                           <td>{{ item.name }}</td>                                                      
                           <td> 
                               <button v-on:click.prevent="removeItem(item)" class="btn btn-danger">
@@ -78,36 +77,7 @@
                         </tr>                            
                       </tbody>
                   </table>      
-               <!--  </div> --> 
-               <!-- <nav aria-label="Page navigation example">
-                   <ul class="pagination justify-content-center">
-                        <li class="page-item">
-                        <button class="btn btn-default" @click="fetchAvailableItems(pagination.prev_page_url)"
-                                :disabled="!pagination.prev_page_url">
-                            Previous
-                        </button>
-                        </li>
-                        <span>Page {{pagination.current_page}} of {{pagination.last_page}}</span>
-                        <button class="btn btn-default" @click="fetchAvailableItems(pagination.next_page_url)"
-                                :disabled="!pagination.next_page_url">Next
-                        </button>
-                    </ul>
-               </nav> -->
-               <ul class="pagination justify-content-center">
-                  <li class="page-item" v-if="pagination.current_page > 1">
-                      <a class="page-link" href="javascript:void(0)" aria-label="Previous" v-on:click.prevent="changePage(pagination.current_page - 1)">
-                          <span aria-hidden="true">«</span>
-                          </a>
-                      </li>
-                  <li class="page-item" v-for="page in pagesNumber" :class="{'active': page == pagination.current_page}">
-                      <a class="page-link" href="javascript:void(0)" v-on:click.prevent="changePage(page)">{{ page }}</a>
-                      </li>
-                  <li class="page-item" v-if="pagination.current_page < pagination.last_page">
-                      <a class="page-link" href="javascript:void(0)" aria-label="Next" v-on:click.prevent="changePage(pagination.current_page + 1)">
-                          <span aria-hidden="true">»</span>
-                          </a>
-                      </li>
-              </ul>
+                </div>
             </div>
             <!-- {{-- card-footer --}} -->
             <div class="card-footer">                    
@@ -142,35 +112,19 @@
             //disableSorting: true,
             error: '',
             loading: false,
-            // offset:{
-            //   type: Number,
-            //   default: 4
-            // },
-            offset: 4,
-            pagination: {
-              current_page: '',
-              last_page: '',
-              next_page_url: '',
-              prev_page_url: '',
-              path: '',
-              total: '',
-              to: '',
-              from: '',
-            },
             response: '',
             //selectedCityId: '',
             //selectedCity: '',
             //selectedDivisionId: '',
             //selectedDivision: '',
             show: false,
-            showAlert: false,
-            slNo: 1,  
+            showAlert: false,  
           }
         },
         mounted() {           
            //this.fetchDivisions();
            this.fetchAvailableItems();           
-           //this.enableSlimScroll();
+           this.enableSlimScroll();
         },
         watch: {
             // selectedDivision() {
@@ -183,42 +137,7 @@
               this.disableSaveButton = (this.itemName == '') ? true : false; 
             } 
         },
-        computed: {
-          // slNumber(idx) {
-          //   return this.slNo + idx;
-          // },
-          pagesNumber() {
-            if (!this.pagination.to) {
-              return [];
-            }
-            let from = this.pagination.current_page - this.offset;
-            if (from < 1) {
-              from = 1;
-            }
-            let to = from + (this.offset * 2);
-            if (to >= this.pagination.last_page) {
-              to = this.pagination.last_page;
-            }
-            let pagesArray = [];
-            for (let page = from; page <= to; page++) {
-              pagesArray.push(page);
-            }
-              return pagesArray;
-          }
-        },
         methods: {
-          slNumber(pageNumber) {
-            //case*5 - offset
-            this.slNo = pageNumber*5- this.offset;            
-          },
-          changePage(page) {
-            this.pagination.current_page = page;
-            //this.$emit('paginate');            
-            //let pageUrl = `/user/api?page=${this.pagination.current_page}`;
-            let pageUrl = `${this.pagination.path}?page=${this.pagination.current_page}`;
-            this.fetchAvailableItems(pageUrl);
-            this.slNumber(page)
-          },
           enableSlimScroll() {
                 $('#scroll-items').slimScroll({
                   color: '#00f',
@@ -232,37 +151,17 @@
             this.show = !this.show;
           },
          
-          fetchAvailableItems(page_url) {
+          fetchAvailableItems() {
             this.loading = true;
-            //this.availableItemList= [];            
-            var vm = this;
-            page_url  = page_url || '/api/items';              
-            axios.get(page_url)  //--> api/bus?q=xyz        (right)
+            this.availableItemList= [];            
+            var vm = this;                
+            axios.get('/api/items')  //--> api/bus?q=xyz        (right)
                 .then(function (response) {                  
-                   response.data.error ? vm.error = response.data.error : vm.availableItemList = response.data.data;
-                   vm.makePagination(response.data);
-                  //vm.availableItemsSortByItemName(vm.busAvailableToCityList); 
-                   vm.availableItemsSortByItemName(vm.availableItemList);                 
+                   response.data.error ? vm.error = response.data.error : vm.availableItemList = response.data;
                    vm.loading = false;
+                  //vm.availableItemsSortByItemName(vm.busAvailableToCityList); 
+                  vm.availableItemsSortByItemName(vm.availableItemList);                 
             });
-          },
-          makePagination(data){
-                // this.current_page= data.current_page;
-                // this.last_page= data.last_page;
-                // this.next_page_url= data.next_page_url;
-                // this.prev_page_url= data.prev_page_ur;
-                let pagination = {
-                    current_page: data.current_page,
-                    last_page: data.last_page,
-                    next_page_url: data.next_page_url,
-                    prev_page_url: data.prev_page_url,
-                    path: data.path,
-                    total: data.total,
-                    to: data.to,
-                    from: data.from
-                }
-                //this.$set('pagination', pagination);
-                this.pagination = pagination;
           },
           /*isSortingAvailableBy(val) {
             if (val== 'name') {
@@ -306,7 +205,6 @@
 
                     if (vm.response) {                                
                         vm.removeItemFromAvailableItemList(item.id); // update the array after removing
-                        vm.updatePaginationTotal(vm.pagination.total);
                         vm.loading = false;
                         vm.actionStatus = 'Removed';
                         vm.alertType = 'danger';
@@ -327,11 +225,8 @@
                 // here 'city' is array object 
                  return item.id == itemId;
             });        
-            this.availableItemList.splice(indx, 1);            
+            this.availableItemList.splice(indx, 1);
             //return;
-          },
-          updatePaginationTotal(total) {
-            this.pagination.total = total - 1;
           },
           saveItems() {
             var vm = this;
@@ -414,5 +309,6 @@
     span.item-total {
       float: right;
     }
+
 
 </style>
