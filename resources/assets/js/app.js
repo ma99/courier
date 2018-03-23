@@ -24,6 +24,7 @@ Vue.use(VeeValidate);
 Vue.component('show-alert', require('./components/Alert.vue'));
 Vue.component('high-light', require('./components/Highlighter.vue'));
 Vue.component('loader', require('./components/Loader.vue'));
+Vue.component('vue-pagination', require('./components/Pagination.vue'));
 
 //components
 import App from './views/App'

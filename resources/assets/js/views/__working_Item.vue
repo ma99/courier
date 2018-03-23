@@ -93,7 +93,7 @@
                         </button>
                     </ul>
                </nav> -->
-               <!-- <ul class="pagination justify-content-center">
+               <ul class="pagination justify-content-center">
                   <li class="page-item" v-if="pagination.current_page > 1">
                       <a class="page-link" href="javascript:void(0)" aria-label="Previous" v-on:click.prevent="changePage(pagination.current_page - 1)">
                           <span aria-hidden="true">«</span>
@@ -107,11 +107,7 @@
                           <span aria-hidden="true">»</span>
                           </a>
                       </li>
-               </ul> -->
-               <vue-pagination  :pagination="pagination"
-                     @paginate="fetchAvailableItems"
-                     :offset="4">
-              </vue-pagination>
+              </ul>
             </div>
             <!-- {{-- card-footer --}} -->
             <div class="card-footer">                    
@@ -156,57 +152,129 @@
               last_page: '',
               next_page_url: '',
               prev_page_url: '',
-              per_page: '',
               path: '',
               total: '',
               to: '',
               from: '',
             },
-            response: '',            
+            response: '',
+            //selectedCityId: '',
+            //selectedCity: '',
+            //selectedDivisionId: '',
+            //selectedDivision: '',
             show: false,
             showAlert: false,
             slNo: 1,  
           }
         },
-        mounted() {                      
-           this.fetchAvailableItems();                      
+        mounted() {           
+           //this.fetchDivisions();
+           this.fetchAvailableItems();           
+           //this.enableSlimScroll();
         },
-        watch: {            
+        watch: {
+            // selectedDivision() {
+            //     this.fetchCitiesByDivision(this.selectedDivision.id); // this.selectedDivisionId
+            // },
+            // itemList() {                
+            //     this.disableSaveButton = (this.itemList.length < 1) ? true : false; 
+            // },
             itemName() {
               this.disableSaveButton = (this.itemName == '') ? true : false; 
             } 
-        },       
-        methods: {                      
+        },
+        computed: {
+          // slNumber(idx) {
+          //   return this.slNo + idx;
+          // },
+          pagesNumber() {
+            if (!this.pagination.to) {
+              return [];
+            }
+            let from = this.pagination.current_page - this.offset;
+            if (from < 1) {
+              from = 1;
+            }
+            let to = from + (this.offset * 2);
+            if (to >= this.pagination.last_page) {
+              to = this.pagination.last_page;
+            }
+            let pagesArray = [];
+            for (let page = from; page <= to; page++) {
+              pagesArray.push(page);
+            }
+              return pagesArray;
+          }
+        },
+        methods: {
+          slNumber(pageNumber) {
+            //case*5 - offset
+            this.slNo = pageNumber*5- this.offset;            
+          },
+          changePage(page) {
+            this.pagination.current_page = page;
+            //this.$emit('paginate');            
+            //let pageUrl = `/user/api?page=${this.pagination.current_page}`;
+            let pageUrl = `${this.pagination.path}?page=${this.pagination.current_page}`;
+            this.fetchAvailableItems(pageUrl);
+            this.slNumber(page)
+          },
+          enableSlimScroll() {
+                $('#scroll-items').slimScroll({
+                  color: '#00f',
+                  size: '8px',
+                  height: '500px', //300px
+                  //height: auto,
+                  wheelStep: 10                  
+                });
+          },
           expandAddItemPanel() {
             this.show = !this.show;
           },
          
-          fetchAvailableItems(payload) {
-            this.loading = true;            
-            let pageUrl = '/api/items';
-            if (payload) {   
-             console.log(payload);          
-              pageUrl = `${this.pagination.path}?page=${payload.current_page}`;
-              this.slNumber(payload.current_page, this.pagination.per_page);
-            }
-            var vm = this;                        
-            axios.get(pageUrl)  //--> api/bus?q=xyz        (right)
+          fetchAvailableItems(page_url) {
+            this.loading = true;
+            //this.availableItemList= [];            
+            var vm = this;
+            page_url  = page_url || '/api/items';              
+            axios.get(page_url)  //--> api/bus?q=xyz        (right)
                 .then(function (response) {                  
                    response.data.error ? vm.error = response.data.error : vm.availableItemList = response.data.data;
                    vm.makePagination(response.data);
+                  //vm.availableItemsSortByItemName(vm.busAvailableToCityList); 
                    vm.availableItemsSortByItemName(vm.availableItemList);                 
                    vm.loading = false;
             });
           },
-          makePagination(data){                
-                this.pagination = data;
+          makePagination(data){
+                // this.current_page= data.current_page;
+                // this.last_page= data.last_page;
+                // this.next_page_url= data.next_page_url;
+                // this.prev_page_url= data.prev_page_ur;
+                let pagination = {
+                    current_page: data.current_page,
+                    last_page: data.last_page,
+                    next_page_url: data.next_page_url,
+                    prev_page_url: data.prev_page_url,
+                    path: data.path,
+                    total: data.total,
+                    to: data.to,
+                    from: data.from
+                }
+                //this.$set('pagination', pagination);
+                this.pagination = pagination;
           },
-          slNumber(pageNumber, perPage) {
-            //case*5 - offset
-            this.slNo = pageNumber*perPage - this.offset;            
-          },         
+          /*isSortingAvailableBy(val) {
+            if (val== 'name') {
+                this.availableItemsSortByItemName(this.busAvailableToCityList);
+                this.disableSorting = true;
+                return;
+            }
+            this.SortByDivisionBusAvailableToCityList(this.busAvailableToCityList);
+            this.disableSorting = false;
+          },*/
 
-          removeItem(item) {  
+          removeItem(item) {  // role id of user/staff in roles table
             var vm = this;
             //this.itemName = item.name; 
             this.itemNameForAction = item.name; 
