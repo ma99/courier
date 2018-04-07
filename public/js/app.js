@@ -77620,7 +77620,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.itemList = [];
       var vm = this;
       //axios.get('api/bus?q=' + busId) //--> admin/api/bus?q=xyz  (wrong)
-      axios.get('/api/items') //--> api/bus?q=xyz        (right)
+      axios.get('/api/all-items') //--> api/bus?q=xyz        (right)
       .then(function (response) {
         response.data.error ? vm.error = response.data.error : vm.itemList = response.data;
         //vm.loading = false;
@@ -81529,7 +81529,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     slNumber: function slNumber(pageNumber, perPage) {
       //case*5 - offset
-      this.slNo = pageNumber * perPage - this.offset;
+      //this.slNo = pageNumber*perPage - this.offset;            
+      this.slNo = pageNumber * perPage - (perPage - 1);
     },
     removeItem: function removeItem(item) {
       var vm = this;

@@ -19,16 +19,16 @@ class SearchItemController extends Controller
    // } 
    
    
-   // public function itemList()
-   // {
-   //  $error = ['error' => 'Item Not Found']; 
-    
-   //  $items = Item::all();
-    
-   //  return $items->count() ? $items : $error;
-   // }
-
    public function itemList()
+   {
+    $error = ['error' => 'Item Not Found']; 
+    
+    $items = Item::all();
+    
+    return $items->count() ? $items : $error;
+   }
+
+   public function itemsForPagination()
    {
     $error = ['error' => 'Item Not Found']; 
     

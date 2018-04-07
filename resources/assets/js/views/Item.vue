@@ -203,7 +203,8 @@
           },
           slNumber(pageNumber, perPage) {
             //case*5 - offset
-            this.slNo = pageNumber*perPage - this.offset;            
+            //this.slNo = pageNumber*perPage - this.offset;            
+            this.slNo = pageNumber*perPage - (perPage-1);            
           },         
 
           removeItem(item) {  

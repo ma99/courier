@@ -370,7 +370,7 @@
             this.itemList= [];            
             var vm = this;                      
             //axios.get('api/bus?q=' + busId) //--> admin/api/bus?q=xyz  (wrong)
-            axios.get('/api/items')  //--> api/bus?q=xyz        (right)
+            axios.get('/api/all-items')  //--> api/bus?q=xyz        (right)
                 .then(function (response) {                  
                    response.data.error ? vm.error = response.data.error : vm.itemList = response.data;
                    //vm.loading = false;

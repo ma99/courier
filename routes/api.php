@@ -20,4 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/divisions', 'Api\SearchCitiesController@divisionList');
 Route::get('/districts', 'Api\SearchCitiesController@districtList');
 Route::get('/booking', 'Api\SearchBookingController@bookingList');
-Route::get('/items', 'Api\SearchItemController@itemList');
+Route::get('/items', 'Api\SearchItemController@itemsForPagination');
+Route::get('/all-items', 'Api\SearchItemController@itemList');
