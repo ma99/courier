@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 //use App\City;
 use App\Booking;
+use App\Customer;
 
 class SearchBookingController extends Controller
 {
@@ -28,5 +29,92 @@ class SearchBookingController extends Controller
     return $bookings->count() ? $bookings : $error;
    }
 
+   public function searchBookingByRef(Request $request)
+   {
+    $error = ['error' => 'Booking Not Found']; 
+    $bookingInfo = [];
+
+    $query = $request->input('q');    
+
+    $booking = Booking::where('booking_ref', $query)->first();
+
+    if (!$booking) {
+        return $booking;
+    }    
+
+    $date = 'N/A';
+    if ($booking->shipment_info) {              
+     $weight = $booking->shipment->weight;
+     $date = date("d-m-Y", strtotime($booking->shipment->date));
+    } 
+
+    $customer = $this->findCustomerById($booking->customer_id);
+    $bookingInfo[] = ([
+                'booking_ref' => $booking->booking_ref,
+                //'date' => $booking->created_at->format('d-m-Y'),
+                'date' => $date,                
+                'items' => $booking->items,
+                'customer_name' => $customer->name,
+                'customer_phone' => $customer->phone,
+                //'items' =>
+                'weight' => $weight,
+             ]);
+
+      
+    //return $bookings->count() ? $bookings : $error;
+    return $bookingInfo;
+   }
+
+   public function findCustomerById($id)
+   {
+     return Customer::find($id);
+   }
+
+   public function searchBookingByNameOrPhone(Request $request)
+   {
+    $error = ['error' => 'Booking Not Found']; 
+    $bookingInfo = [];
+
+    $query = $request->input('q');    
+
+    $customer = Customer::where('name', $query)
+                          ->orWhere('phone', $query)->first();
+
+     if (!$customer) {
+        return $customer;
+    }   
+
+    
+    $customerId= $customer->id;
+
+    $booking = $this->findBookingInfoByCustomerId($customerId);
+
+    $date = 'N/A';
+    if ($booking->shipment_info) {              
+     $weight = $booking->shipment->weight;
+     $date = date("d-m-Y", strtotime($booking->shipment->date));
+    } 
+
+    //return $bookings;
+
+    $bookingInfo[] = ([
+                'booking_ref' => $booking->booking_ref,
+                //'date' => $booking->created_at->format('d-m-Y'),
+                'date' => $date,                
+                'items' => $booking->items,
+                'customer_name' => $customer->name,
+                'customer_phone' => $customer->phone,
+                //'items' =>
+                'weight' => $weight,
+             ]);
+
+    return $bookingInfo;
+
+   }
+
+   public function findBookingInfoByCustomerId($id)
+   {
+       return Booking::where('customer_id', $id)->first();    
+   }
   
 }

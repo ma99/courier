@@ -40,6 +40,12 @@
                               <span>Report</span>
                             </router-link>
                           </li>
+                          <li class="nav-item">                            
+                            <router-link to="/search" class="nav-link">
+                              <i class="fa fa-search-plus" aria-hidden="true"></i>
+                              <span>Search</span>
+                            </router-link>
+                          </li>
 
                           <li class="nav-item" v-show="isAdmin">                            
                             <div class="dropdown">

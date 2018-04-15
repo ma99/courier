@@ -32,6 +32,7 @@ import Booking from './views/Booking'
 import Shipment from './views/Shipment'
 import Home from './views/Home'
 import Report  from './views/Report'
+import Search  from './views/Search'
 import Register  from './views/Register'
 import Item  from './views/Item'
 
@@ -56,6 +57,10 @@ const router = new VueRouter({
         {
             path: '/report',            
             component: Report
+        },
+        {
+            path: '/search',            
+            component: Search
         },
         {
             path: '/item',            

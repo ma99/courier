@@ -110,7 +110,6 @@ class ShipmentController extends Controller
    public function findCustomerById($id)
    {
      return Customer::find($id);
-
    }
 
 }
