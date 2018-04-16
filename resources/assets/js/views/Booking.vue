@@ -244,7 +244,7 @@
             </div>
             <loader :show="loading"></loader>
             <div class="form-group row justify-content-center">
-              <div class="col-sm-4">
+              <div class="col-sm-5">
                 <div class="btn-group mr-2" role="group" aria-label="Third group">
                   <button type="submit" class="btn btn-primary btn-lg" v-on:click.prevent="saveBookingInfo()" :disabled="!isValid">Save</button>
               </div>

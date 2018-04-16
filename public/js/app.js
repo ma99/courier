@@ -78753,7 +78753,7 @@ var render = function() {
                 "div",
                 { staticClass: "form-group row justify-content-center" },
                 [
-                  _c("div", { staticClass: "col-sm-4" }, [
+                  _c("div", { staticClass: "col-sm-5" }, [
                     _c(
                       "div",
                       {
