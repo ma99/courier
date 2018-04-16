@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 //use App\City;
 use App\Booking;
 use App\Customer;
+use App\Receiver;
 
 class SearchBookingController extends Controller
 {
@@ -36,8 +37,10 @@ class SearchBookingController extends Controller
 
     $query = $request->input('q');    
 
-    $booking = Booking::where('booking_ref', $query)->first();
-
+    //$booking = Booking::where('booking_ref', $query)->first();
+    $booking = Booking::where('booking_ref', $query)->with('receiver:booking_id,name,phone,address')->first();
+    //$booking = Booking::where('booking_ref', $query)->with('receiver')->first();
+    //return $booking;
     if (!$booking) {
         return $booking;
     }    
@@ -56,6 +59,10 @@ class SearchBookingController extends Controller
                 'items' => $booking->items,
                 'customer_name' => $customer->name,
                 'customer_phone' => $customer->phone,
+                'customer_address' => $customer->address,
+                'receiver_name' => $booking->receiver->name,
+                'receiver_phone' => $booking->receiver->phone,
+                'receiver_address' => $booking->receiver->address,
                 //'items' =>
                 'weight' => $weight,
              ]);
@@ -104,6 +111,10 @@ class SearchBookingController extends Controller
                 'items' => $booking->items,
                 'customer_name' => $customer->name,
                 'customer_phone' => $customer->phone,
+                'customer_address' => $customer->address,
+                'receiver_name' => $booking->receiver->name,
+                'receiver_phone' => $booking->receiver->phone,
+                'receiver_address' => $booking->receiver->address,
                 //'items' =>
                 'weight' => $weight,
              ]);
@@ -114,7 +125,10 @@ class SearchBookingController extends Controller
 
    public function findBookingInfoByCustomerId($id)
    {
-       return Booking::where('customer_id', $id)->first();    
+       //return Booking::where('customer_id', $id)->first();    
+       return Booking::where('customer_id', $id)->with('receiver:booking_id,name,phone,address')->first();    
+      //$booking = Booking::where('booking_ref', $query)->with('receiver:booking_id,name,phone,address')->first();
+
    }
   
 }

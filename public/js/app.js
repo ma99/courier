@@ -80742,7 +80742,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.active[data-v-d38fb016] {\n  font-weight: 600;\n}\n.report-area[data-v-d38fb016] {\n  margin-top: 1.5rem;\n}\n.search-by[data-v-d38fb016] {\n  margin-bottom: 1.5rem;\n  padding: 0.625rem;\n  margin-left: -98px;\n  width: 55%;\n  color: #9d7791;\n}\nspan.search-by-label[data-v-d38fb016] {\n  margin-right: 1rem;\n  color: #4a91e7;\n  font-weight: 600;\n}\ntd.text-center[data-v-d38fb016] {\n  text-align: center;\n}\n#scroll-items span[data-v-d38fb016] {\n  cursor: pointer;\n  margin-left: 5px;\n}\n#scroll-items span[disabled][data-v-d38fb016] {\n  cursor: not-allowed;\n  opacity: 0.65;\n}\n", ""]);
+exports.push([module.i, "\n.active[data-v-d38fb016] {\n  font-weight: 600;\n}\n.report-area[data-v-d38fb016] {\n  margin-top: 1.5rem;\n}\n.search-by[data-v-d38fb016] {\n  margin-bottom: 1.5rem;\n  padding: 0.625rem;\n  margin-left: -4rem;\n  width: auto;\n  font-size: 0.9rem;\n  color: #9d7791;\n}\nspan.search-by-label[data-v-d38fb016] {\n  margin-right: 1rem;\n  color: #4a91e7;\n  font-weight: 600;\n}\ntable[data-v-d38fb016] {\n  font-size: .8rem;\n}\ntd.text-center[data-v-d38fb016] {\n  text-align: center;\n}\n", ""]);
 
 // exports
 
@@ -80753,6 +80753,13 @@ exports.push([module.i, "\n.active[data-v-d38fb016] {\n  font-weight: 600;\n}\n.
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -81124,76 +81131,92 @@ var render = function() {
               1
             )
           ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.showReportArea,
-                expression: "showReportArea"
-              }
-            ],
-            staticClass: "report-area"
-          },
-          [
-            _c("div", { staticClass: "card border-primary" }, [
-              _vm._m(2),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c("div", { attrs: { id: "scroll-items" } }, [
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showReportArea,
+              expression: "showReportArea"
+            }
+          ],
+          staticClass: "report-area"
+        },
+        [
+          _c("div", { staticClass: "card border-primary" }, [
+            _vm._m(2),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c("div", { staticClass: "col-12" }, [
+                _c("div", { staticClass: "table-responsive" }, [
                   _c("table", { staticClass: "table table-hover" }, [
                     _vm._m(3),
                     _vm._v(" "),
                     _c(
                       "tbody",
-                      [
-                        _vm._l(_vm.searchInfo, function(booking, index) {
-                          return _c("tr", [
-                            _c("th", { attrs: { scope: "row" } }, [
-                              _vm._v(" " + _vm._s(index + 1) + " ")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(" " + _vm._s(booking.booking_ref) + " ")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(" " + _vm._s(booking.date) + " ")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(" " + _vm._s(booking.customer_name) + " ")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(" " + _vm._s(booking.customer_phone) + " ")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(" " + _vm._s(booking.items) + " ")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(" " + _vm._s(booking.weight) + " ")
-                            ])
+                      _vm._l(_vm.searchInfo, function(booking, index) {
+                        return _c("tr", [
+                          _c(
+                            "th",
+                            {
+                              staticClass: "text-nowrap",
+                              attrs: { scope: "row" }
+                            },
+                            [_vm._v(" " + _vm._s(index + 1) + " ")]
+                          ),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-nowrap" }, [
+                            _vm._v(" " + _vm._s(booking.booking_ref) + " ")
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-nowrap" }, [
+                            _vm._v(" " + _vm._s(booking.date) + " ")
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(" " + _vm._s(booking.customer_name) + " ")
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-nowrap" }, [
+                            _vm._v(" " + _vm._s(booking.customer_phone) + " ")
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(" " + _vm._s(booking.customer_address) + " ")
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(" " + _vm._s(booking.receiver_name) + " ")
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-nowrap" }, [
+                            _vm._v(" " + _vm._s(booking.receiver_phone) + " ")
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(" " + _vm._s(booking.receiver_address) + " ")
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(" " + _vm._s(booking.items) + " ")]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-nowrap" }, [
+                            _vm._v(" " + _vm._s(booking.weight) + " ")
                           ])
-                        }),
-                        _vm._v(" "),
-                        _vm._m(4)
-                      ],
-                      2
+                        ])
+                      })
                     )
                   ])
                 ])
               ])
             ])
-          ]
-        )
-      ])
+          ])
+        ]
+      )
     ])
   ])
 }
@@ -81249,7 +81272,7 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "align-top", attrs: { scope: "col" } }, [
-          _vm._v("Customer Name")
+          _vm._v("Sender Name")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "align-top", attrs: { scope: "col" } }, [
@@ -81257,33 +81280,29 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "align-top", attrs: { scope: "col" } }, [
-          _vm._v("Item")
+          _vm._v("Address")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "align-top", attrs: { scope: "col" } }, [
+          _vm._v("Receiver Name")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "align-top", attrs: { scope: "col" } }, [
+          _vm._v("Phone")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "align-top", attrs: { scope: "col" } }, [
+          _vm._v("Address")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "align-top", attrs: { scope: "col" } }, [
+          _vm._v("Item List")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "align-top", attrs: { scope: "col" } }, [
           _vm._v("Weight (kg)")
         ])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td"),
-      _vm._v(" "),
-      _c("td"),
-      _vm._v(" "),
-      _c("td"),
-      _vm._v(" "),
-      _c("td"),
-      _vm._v(" "),
-      _c("td"),
-      _vm._v(" "),
-      _c("td"),
-      _vm._v(" "),
-      _c("td")
     ])
   }
 ]

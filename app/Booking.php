@@ -44,7 +44,8 @@ class Booking extends Model
 
     public function receiver()
     {
-    	return $this->hasOne(Receiver::class);
+        return $this->hasOne(Receiver::class);
+    	//return $this->hasOne('App\Receiver');
     	
     }
 
