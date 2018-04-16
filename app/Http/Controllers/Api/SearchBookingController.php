@@ -45,6 +45,7 @@ class SearchBookingController extends Controller
         return $booking;
     }    
 
+    $weight = 'N/A';
     $date = 'N/A';
     if ($booking->shipment_info) {              
      $weight = $booking->shipment->weight;
@@ -96,6 +97,7 @@ class SearchBookingController extends Controller
 
     $booking = $this->findBookingInfoByCustomerId($customerId);
 
+    $weight = 'N/A';
     $date = 'N/A';
     if ($booking->shipment_info) {              
      $weight = $booking->shipment->weight;
