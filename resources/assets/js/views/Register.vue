@@ -25,6 +25,7 @@
                           <div class="form-group row mb-0 justify-content-center">
                               <!-- <div class="col-md-6 offset-md-3"> -->
                                   <button type="submit" class="btn btn-primary" v-on:click.prevent="addUser()">
+                                      <i class="fa fa-user-plus" aria-hidden="true"></i>
                                       Add Another User
                                   </button>
                               <!-- </div> -->
